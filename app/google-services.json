@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "253766859147",
+    "firebase_url": "https://onlabproject.firebaseio.com",
+    "project_id": "onlabproject",
+    "storage_bucket": "onlabproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253766859147:android:bd52fbd615cac465",
+        "android_client_info": {
+          "package_name": "hu.adamdobo.onlabproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253766859147-lrhtopga2icihl5t65004bhacq2gjl2c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hu.adamdobo.onlabproject",
+            "certificate_hash": "4dcb799f467dea42489bfa57d1ea5f5a099f37c7"
+          }
+        },
+        {
+          "client_id": "253766859147-j5rsh2gae8v4gn0hq9s28uktq5oh8peb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlSVOQVd6OpQ0DEQ4rn2blJBBnLD2JrPs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253766859147-j5rsh2gae8v4gn0hq9s28uktq5oh8peb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
