@@ -23,6 +23,13 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLog
     }
 
     @Override
+    public void checkIfUserIsLoggedIn() {
+        if(loginInteractor.isUserLoggedIn()){
+            loginView.navigateToHome();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         loginView = null;
     }
@@ -30,8 +37,8 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLog
     @Override
     public void onLoginError() {
         if (loginView != null) {
-            loginView.setLoginError();
             loginView.hideProgress();
+            loginView.setLoginError();
         }
     }
 
@@ -45,18 +52,18 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLog
     }
 
     @Override
-    public void onUsernameEmptyError() {
+    public void onEmailEmptyError() {
         if (loginView != null) {
-            loginView.setEmailEmptyError();
             loginView.hideProgress();
+            loginView.setEmailEmptyError();
         }
     }
 
     @Override
     public void onPasswordEmptyError() {
         if (loginView != null) {
-            loginView.setPasswordEmptyError();
             loginView.hideProgress();
+            loginView.setPasswordEmptyError();
         }
     }
 }

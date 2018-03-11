@@ -19,7 +19,7 @@ public class LoginInteractorImpl implements LoginInteractor {
     @Override
     public void login(String email, String password, final OnLoginFinishedListener listener, LoginView view) {
         if (TextUtils.isEmpty(email)) {
-            listener.onUsernameEmptyError();
+            listener.onEmailEmptyError();
             return;
         }
         if (TextUtils.isEmpty(password)) {
@@ -37,5 +37,13 @@ public class LoginInteractorImpl implements LoginInteractor {
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean isUserLoggedIn() {
+        if(auth.getCurrentUser()!=null){
+            return true;
+        }
+        return false;
     }
 }
