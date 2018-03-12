@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import hu.adamdobo.onlabproject.R;
 import hu.adamdobo.onlabproject.login.LoginActivity;
+import hu.adamdobo.onlabproject.model.User;
 
 public class SignupActivity extends AppCompatActivity implements SignupView {
 
@@ -53,15 +54,20 @@ public class SignupActivity extends AppCompatActivity implements SignupView {
         loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 navigateToLogin();
             }
         });
     }
 
     @Override
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
     public void signUpUser() {
-        presenter.registerUser(emailInput.getText().toString(), passwordInput.getText().toString());
+        presenter.registerUser(new User(nameInput.getText().toString(),emailInput.getText().toString(), addressInput.getText().toString(), nickNameInput.getText().toString()), passwordInput.getText().toString());
     }
 
     @Override

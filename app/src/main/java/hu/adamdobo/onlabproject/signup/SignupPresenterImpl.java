@@ -1,5 +1,7 @@
 package hu.adamdobo.onlabproject.signup;
 
+import hu.adamdobo.onlabproject.model.User;
+
 /**
  * Created by Ádám on 3/11/2018.
  */
@@ -15,11 +17,11 @@ public class SignupPresenterImpl implements SignupPresenter, SignupInteractor.On
     }
 
     @Override
-    public void registerUser(String email, String password) {
+    public void registerUser(User user, String password) {
         if(signupView!=null){
             signupView.showProgress();
         }
-        signupInteractor.signup(email, password, this, signupView);
+        signupInteractor.signup(user, password, this, signupView);
     }
 
     @Override
