@@ -20,4 +20,10 @@
     <string name="already_a_member">Already a member? Login</string>
     <string name="create_account">Create account</string>
     <string name="action_logout">Logout</string>
+    <string name="start_price">Start price</string>
+    <string name="description">Description</string>
+    <string name="bid_expiry">Bid expiry</string>
+    <string name="new_item">New item</string>
+    <string name="current_bid">Current bid</string>
+    <string name="bid_expires">Bid expires</string>
 </resources>
