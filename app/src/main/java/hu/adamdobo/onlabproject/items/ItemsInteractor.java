@@ -1,5 +1,7 @@
 package hu.adamdobo.onlabproject.items;
 
+import android.net.Uri;
+
 import java.util.List;
 
 import hu.adamdobo.onlabproject.model.Item;
@@ -15,6 +17,8 @@ public interface ItemsInteractor {
     void subscribeToDatabaseChanges();
 
     void saveItem(Item item);
+
+    void savePictureToFirebase(Uri uri);
 
     void setPresenter(ItemsPresenter presenter);
 }

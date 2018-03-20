@@ -26,4 +26,7 @@
     <string name="new_item">New item</string>
     <string name="current_bid">Current bid</string>
     <string name="bid_expires">Bid expires</string>
+    <string name="item_description">Description</string>
+    <string name="place_bid">Place bid</string>
+    <string name="your_bid">Your bid</string>
 </resources>

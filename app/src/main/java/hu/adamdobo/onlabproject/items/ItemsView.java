@@ -7,4 +7,5 @@ package hu.adamdobo.onlabproject.items;
 public interface ItemsView {
 
     void onItemChanged();
+
 }

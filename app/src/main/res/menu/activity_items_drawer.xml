@@ -8,17 +8,14 @@
             android:id="@+id/nav_items"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Items" />
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="Profile"
+            />
+
     </group>
 
-    <item android:title="Me">
-        <menu>
-            <item
-                android:id="@+id/nav_profile"
-                android:title="Profile" />
-            <item
-                android:id="@+id/nav_my_bids"
-                android:title="My bids" />
-        </menu>
-    </item>
 
 </menu>

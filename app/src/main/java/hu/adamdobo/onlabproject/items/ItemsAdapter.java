@@ -1,6 +1,7 @@
 package hu.adamdobo.onlabproject.items;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import hu.adamdobo.onlabproject.R;
+import hu.adamdobo.onlabproject.bid.BidFragment;
+import hu.adamdobo.onlabproject.drawer.DrawerActivity;
 import hu.adamdobo.onlabproject.model.Item;
 
 /**
@@ -22,6 +30,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
     private List<Item> itemList;
     private Context context;
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     ItemsAdapter(Context context){
         this.context = context;
@@ -43,6 +52,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         holder.startPrice.setText(item.startPrice);
         holder.expirationDate.setText(item.bidExpiry);
         holder.currentBid.setText(item.currentBid);
+        StorageReference photoRef = storageReference.child(item.ID);
+        Glide.with(context)
+                .using(new FirebaseImageLoader())
+                .load(photoRef)
+                .into(holder.itemPhoto);
+
     }
 
     @Override
@@ -68,6 +83,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    String itemID = itemList.get(getAdapterPosition()).ID;
+                    bundle.putString("item_id", itemID);
+                    BidFragment bidFragment = (BidFragment)BidFragment.newInstance();
+                    bidFragment.setArguments(bundle);
+                    ((DrawerActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, bidFragment).addToBackStack(null).commit();
                 }
             });
         }

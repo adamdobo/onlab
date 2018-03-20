@@ -13,10 +13,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import hu.adamdobo.onlabproject.R;
-import hu.adamdobo.onlabproject.items.ItemsActivity;
+import hu.adamdobo.onlabproject.drawer.DrawerActivity;
 import hu.adamdobo.onlabproject.signup.SignupActivity;
 
-public class LoginActivity extends AppCompatActivity implements LoginView{
+public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private Button loginBtn;
     private TextView signUpLink;
@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
 
     @Override
     public void navigateToHome() {
-        Intent home = new Intent(this, ItemsActivity.class);
+        Intent home = new Intent(this, DrawerActivity.class);
         home.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(home);
         finish();

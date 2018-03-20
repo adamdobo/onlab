@@ -1,5 +1,7 @@
 package hu.adamdobo.onlabproject.items;
 
+import android.net.Uri;
+
 import hu.adamdobo.onlabproject.model.Item;
 
 /**
@@ -9,5 +11,7 @@ import hu.adamdobo.onlabproject.model.Item;
 public interface SaveItemCallbackListener {
 
     void saveItem(Item item);
+
+    void savePictureToFirebase(Uri uri);
 
 }

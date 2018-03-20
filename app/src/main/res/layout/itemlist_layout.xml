@@ -19,8 +19,9 @@
             android:id="@+id/itemImage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
             android:layout_gravity="start"
+            android:adjustViewBounds="true"
+            android:src="@drawable/placeholderimage"
             android:layout_weight="1" />
 
         <RelativeLayout

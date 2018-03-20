@@ -1,5 +1,6 @@
 package hu.adamdobo.onlabproject.items;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,12 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
     private RecyclerView recyclerView;
     private ItemsAdapter itemsAdapter;
 
+    @Override
+    public void onDestroy(){
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,8 +40,8 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewItemDialog dialog = new NewItemDialog();
-                dialog.show(getContext(), ItemsFragment.this, getFragmentManager());
+                NewItemDialog newItemDialog = NewItemDialog.newInstance(ItemsFragment.this);
+                newItemDialog.show(getActivity().getSupportFragmentManager(), NewItemDialog.TAG);
             }
         });
         return contentView;
@@ -57,7 +64,13 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
     }
 
     @Override
+    public void savePictureToFirebase(Uri uri) {
+        presenter.savePictureToFirebase(uri);
+    }
+
+    @Override
     public void onItemChanged() {
         itemsAdapter.addItems(presenter.getAllItems());
     }
+
 }
