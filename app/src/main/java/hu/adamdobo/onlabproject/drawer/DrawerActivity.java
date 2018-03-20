@@ -2,9 +2,7 @@ package hu.adamdobo.onlabproject.drawer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import hu.adamdobo.onlabproject.R;
+import hu.adamdobo.onlabproject.items.ItemsFragment;
 import hu.adamdobo.onlabproject.login.LoginActivity;
 import hu.adamdobo.onlabproject.model.User;
 
@@ -31,18 +30,9 @@ public class DrawerActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_items);
+        setContentView(R.layout.activity_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,9 +42,16 @@ public class DrawerActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        setDefaultFragment(navigationView);
         setNavigationHeader(navigationView);
         presenter = new DrawerPresenterImpl(this, new DrawerInteractorImpl());
         presenter.setUserInfo();
+    }
+
+    private void setDefaultFragment(NavigationView navigationView) {
+        navigationView.getMenu().getItem(0).setChecked(true);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, ItemsFragment.newInstance()).commit();
     }
 
     @Override
@@ -62,7 +59,13 @@ public class DrawerActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            int count = getSupportFragmentManager().getBackStackEntryCount();
+            if(count==0){
+                super.onBackPressed();
+            }else {
+                getSupportFragmentManager().popBackStack();
+
+            }
         }
     }
 
@@ -94,6 +97,8 @@ public class DrawerActivity extends AppCompatActivity
         return true;
     }
 
+
+
     @Override
     public void navigateToLogin() {
         Intent login = new Intent(this, LoginActivity.class);
@@ -110,8 +115,8 @@ public class DrawerActivity extends AppCompatActivity
 
     @Override
     public void navigateUsingTo(Fragment fragment) {
-        /*getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container_all, fragment).commit();*/
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
     }
 
     public void setNavigationHeader(NavigationView navigationView) {
