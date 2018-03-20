@@ -13,5 +13,4 @@ public class Item {
     public String currentBid;
     public String bidExpiry;
     public String description;
-    public String imageUrl;
 }
