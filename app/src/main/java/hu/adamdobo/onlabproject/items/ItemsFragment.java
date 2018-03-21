@@ -33,8 +33,8 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View contentView = inflater.inflate(R.layout.fragment_items, container, false);
         presenter = new ItemsPresenterImpl(this, new ItemsInteractorImpl());
+        View contentView = inflater.inflate(R.layout.fragment_items, container, false);
         setRecyclerView(contentView);
         FloatingActionButton fab = (FloatingActionButton) contentView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

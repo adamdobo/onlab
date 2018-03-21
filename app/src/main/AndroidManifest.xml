@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".login.LoginActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,8 +29,10 @@
         <activity
             android:name=".drawer.DrawerActivity"
             android:label="@string/title_activity_items"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".signup.SignupActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".signup.SignupActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

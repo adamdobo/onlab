@@ -47,6 +47,7 @@ public class BidFragment extends Fragment implements BidView {
         itemImage = contentView.findViewById(R.id.itemImage);
         itemID = getArguments().getString("item_id");
         presenter = new BidPresenterImpl(this, new BidInteractorImpl(), itemID);
+        setImageView();
 
         bidButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +94,11 @@ public class BidFragment extends Fragment implements BidView {
     @Override
     public void setBidSuccess() {
         Snackbar.make(getView(), "Successful bid!", Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setImageView() {
+        presenter.loadItemPhoto(getContext(), itemID, itemImage);
     }
 
     @Override

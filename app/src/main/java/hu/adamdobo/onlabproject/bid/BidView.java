@@ -16,6 +16,8 @@ public interface BidView {
 
     void setBidSuccess();
 
+    void setImageView();
+
     void checkForBidDisable();
 
     void setCurrentBidFailure();

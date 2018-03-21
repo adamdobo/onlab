@@ -1,5 +1,11 @@
 package hu.adamdobo.onlabproject.bid;
 
+import android.content.Context;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+
 import hu.adamdobo.onlabproject.model.Item;
 
 /**
@@ -68,6 +74,14 @@ public class BidPresenterImpl implements BidPresenter {
             }
         }
         onBidSuccess(highestBid);
+    }
+
+    @Override
+    public void loadItemPhoto(Context context, String itemID, ImageView imageView) {
+        Glide.with(context)
+                .using(new FirebaseImageLoader())
+                .load(bidInteractor.getPhotoReference(itemID))
+                .into(imageView);
     }
 
     @Override
