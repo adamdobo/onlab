@@ -51,7 +51,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         if(item.imageUrl != null) {
             Glide.with(context)
                     .load(item.imageUrl)
-                    .into(holder.itemPhoto);
+                    .into(holder.itemPhoto)
+            ;
             holder.itemPhoto.setVisibility(View.VISIBLE);
         }else {
             holder.itemPhoto.setVisibility(View.INVISIBLE);
@@ -74,7 +75,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     }
 
     public void deleteItem(Item deletedItem) {
-        int index = itemList.indexOf(deletedItem);
+        int index = -1;
+        for (Item item : itemList) {
+            if(item.ID.equals(deletedItem.ID)){
+                index = itemList.indexOf(item);
+            }
+        }
         itemList.remove(index);
         notifyItemRemoved(index);
     }

@@ -188,11 +188,11 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW*2, photoH/targetH*2);
+        Double scaleFactor = Math.min(photoW/targetW*1.3, photoH/targetH*1.3);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inSampleSize = scaleFactor.intValue();
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
