@@ -10,9 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +27,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
     private List<Item> itemList;
     private Context context;
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     ItemsAdapter(Context context){
         this.context = context;
@@ -52,11 +48,14 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         holder.startPrice.setText(item.startPrice);
         holder.expirationDate.setText(item.bidExpiry);
         holder.currentBid.setText(item.currentBid);
-        StorageReference photoRef = storageReference.child(item.ID);
-        Glide.with(context)
-                .using(new FirebaseImageLoader())
-                .load(photoRef)
-                .into(holder.itemPhoto);
+        if(item.imageUrl != null) {
+            Glide.with(context)
+                    .load(item.imageUrl)
+                    .into(holder.itemPhoto);
+            holder.itemPhoto.setVisibility(View.VISIBLE);
+        }else {
+            holder.itemPhoto.setVisibility(View.INVISIBLE);
+        }
 
     }
 
@@ -65,9 +64,19 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         return itemList.size();
     }
 
-    public void addItems(List<Item> allItems) {
-        itemList= allItems;
-        notifyDataSetChanged();
+
+    public void addItem(Item addedItem) {
+        itemList.add(addedItem);
+        notifyItemInserted(itemList.indexOf(addedItem));
+    }
+
+    public void changeItem(Item changedItem) {
+    }
+
+    public void deleteItem(Item deletedItem) {
+        int index = itemList.indexOf(deletedItem);
+        itemList.remove(index);
+        notifyItemRemoved(index);
     }
 
     class ItemsViewHolder extends RecyclerView.ViewHolder {

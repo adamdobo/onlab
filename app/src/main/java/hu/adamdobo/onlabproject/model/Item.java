@@ -12,5 +12,6 @@ public class Item {
     public String startPrice;
     public String currentBid;
     public String bidExpiry;
+    public String imageUrl;
     public String description;
 }

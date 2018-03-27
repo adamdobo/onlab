@@ -1,9 +1,5 @@
 package hu.adamdobo.onlabproject.items;
 
-import android.net.Uri;
-
-import java.util.List;
-
 import hu.adamdobo.onlabproject.model.Item;
 
 /**
@@ -28,23 +24,39 @@ public class ItemsPresenterImpl implements ItemsPresenter{
     }
 
     @Override
-    public void saveItem(Item item) {
-        itemsInteractor.saveItem(item);
+    public void saveItemWithPicture(Item item, byte[] bytes) {
+        itemsInteractor.saveItemWithPicture(item, bytes);
     }
 
     @Override
-    public void savePictureToFirebase(Uri uri) {
-        itemsInteractor.savePictureToFirebase(uri);
+    public Item getAddedItem() {
+        return itemsInteractor.getAddedItem();
     }
 
     @Override
-    public List<Item> getAllItems() {
-        return itemsInteractor.getAllItems();
+    public Item getDeletedItem() {
+        return itemsInteractor.getDeletedItem();
     }
+
+    @Override
+    public Item getChangedItem() {
+        return itemsInteractor.getChangedItem();
+    }
+
 
     @Override
     public void onItemChanged() {
         itemsView.onItemChanged();
+    }
+
+    @Override
+    public void onItemAdded() {
+        itemsView.onItemAdded();
+    }
+
+    @Override
+    public void onItemDeleted() {
+        itemsView.onItemDeleted();
     }
 
 }

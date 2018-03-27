@@ -1,23 +1,17 @@
 package hu.adamdobo.onlabproject.items;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import hu.adamdobo.onlabproject.model.Item;
 
@@ -28,27 +22,41 @@ import hu.adamdobo.onlabproject.model.Item;
 public class ItemsInteractorImpl implements ItemsInteractor {
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
-    List<Item> items = new ArrayList<>();
     ItemsPresenter presenter;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     private Uri downloadUrl;
     private String itemID;
+    private Item addedItem;
+    private Item deletedItem;
+    private Item changedItem;
 
 
     @Override
     public void subscribeToDatabaseChanges() {
         DatabaseReference itemsRef = db.getReference().child("items");
-        items.clear();
 
-        itemsRef.addValueEventListener(new ValueEventListener() {
+        itemsRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                items.clear();
-                for(DataSnapshot child : dataSnapshot.getChildren()){
-                    Item temp = child.getValue(Item.class);
-                    items.add(temp);
-                }
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                addedItem = dataSnapshot.getValue(Item.class);
+                presenter.onItemAdded();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                changedItem = dataSnapshot.getValue(Item.class);
                 presenter.onItemChanged();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                deletedItem = dataSnapshot.getValue(Item.class);
+                presenter.onItemDeleted();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -59,35 +67,42 @@ public class ItemsInteractorImpl implements ItemsInteractor {
     }
 
     @Override
-    public List<Item> getAllItems() {
-        return items;
+    public Item getAddedItem() {
+        return addedItem;
+    }
+
+    @Override
+    public Item getDeletedItem() {
+        return deletedItem;
+    }
+
+    @Override
+    public Item getChangedItem() {
+        return changedItem;
     }
 
 
     @Override
-    public void saveItem(Item item) {
+    public void saveItem(Uri uri, Item item) {
         DatabaseReference itemsRef = db.getReference().child("items").push();
         itemID = itemsRef.getKey();
         item.ID = itemID;
-        //item.imageUrl = downloadUrl.toString();
+        item.imageUrl = uri.toString();
         item.addedBy = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         itemsRef.setValue(item);
     }
 
     @Override
-    public void savePictureToFirebase(Uri uri) {
+    public void saveItemWithPicture(Item item, byte[] bytes) {
         StorageReference storageReference = storage.getReference();
-        storageReference.child(itemID).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        final Item temp = item;
+        storageReference.child("images/" + item.name + item.startPrice).putBytes(bytes).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                downloadUrl = taskSnapshot.getDownloadUrl();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("ERROR!", e.getMessage());
+                saveItem(taskSnapshot.getDownloadUrl(), temp);
             }
         });
+
     }
 
     @Override

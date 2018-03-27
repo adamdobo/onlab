@@ -1,9 +1,5 @@
 package hu.adamdobo.onlabproject.items;
 
-import android.net.Uri;
-
-import java.util.List;
-
 import hu.adamdobo.onlabproject.model.Item;
 
 /**
@@ -14,12 +10,17 @@ public interface ItemsPresenter {
 
     void onDestroy();
 
-    void saveItem(Item item);
+    void saveItemWithPicture(Item item, byte[] bytes);
 
-    void savePictureToFirebase(Uri uri);
+    Item getAddedItem();
 
-    List<Item> getAllItems();
+    Item getDeletedItem();
+
+    Item getChangedItem();
 
     void onItemChanged();
 
+    void onItemAdded();
+
+    void onItemDeleted();
 }

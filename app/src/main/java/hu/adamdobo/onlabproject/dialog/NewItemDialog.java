@@ -4,12 +4,17 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
@@ -19,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -42,9 +48,8 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
     private TextView expiryTextView;
     private ImageView photoImageView;
     private String mCurrentPhotoPath;
-    private Uri photoURI;
     private static SaveItemCallbackListener listener;
-
+    private byte[] bytes;
 
     public static NewItemDialog newInstance(SaveItemCallbackListener saveItemCallbackListener){
         listener = saveItemCallbackListener;
@@ -61,8 +66,7 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.saveItem(getItem());
-                        listener.savePictureToFirebase(photoURI);
+                        listener.saveItemWithPicture(getItem(), bytes);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
@@ -80,7 +84,7 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
         photoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openCameraIntent();
+                requestNeededPermission();
             }
         });
         final DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
@@ -109,6 +113,42 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
         return image;
     }
 
+
+    private void requestNeededPermission() {
+        if (ContextCompat.checkSelfPermission(getContext(),
+                android.Manifest.permission.CAMERA) !=
+                PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    android.Manifest.permission.CAMERA)) {
+            }
+
+            ActivityCompat.requestPermissions(getActivity(), new String[]{
+                            android.Manifest.permission.CAMERA},
+                    REQUEST_IMAGE_CAPTURE);
+        } else {
+            openCameraIntent();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                Snackbar.make(getContentView(), "Permission granted!",
+                        Snackbar.LENGTH_SHORT).show();
+
+                openCameraIntent();
+
+            } else {
+                Snackbar.make(getContentView(), "Permission not granted!",
+                        Snackbar.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private void openCameraIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
@@ -119,7 +159,7 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
                 Log.e("IOException", "Error while creating file.");
             }
             if (photoFile != null) {
-                photoURI = FileProvider.getUriForFile(getContext(),
+                Uri photoURI = FileProvider.getUriForFile(getContext(),
                         "hu.adamdobo.onlabproject.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -132,11 +172,11 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            setPic();
+            bytes = getByteArray();
         }
     }
 
-    private void setPic() {
+    private byte[] getByteArray() {
         int targetW = photoImageView.getWidth();
         int targetH = photoImageView.getHeight();
 
@@ -148,7 +188,7 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        int scaleFactor = Math.min(photoW/targetW*2, photoH/targetH*2);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
@@ -157,6 +197,9 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         photoImageView.setImageBitmap(bitmap);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
     }
 
     public Item getItem() {

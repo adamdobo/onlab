@@ -1,6 +1,5 @@
 package hu.adamdobo.onlabproject.items;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -58,19 +57,24 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
         return new ItemsFragment();
     }
 
-    @Override
-    public void saveItem(Item item) {
-        presenter.saveItem(item);
-    }
 
     @Override
-    public void savePictureToFirebase(Uri uri) {
-        presenter.savePictureToFirebase(uri);
+    public void saveItemWithPicture(Item item, byte[] bytes) {presenter.saveItemWithPicture(item, bytes);
     }
 
     @Override
     public void onItemChanged() {
-        itemsAdapter.addItems(presenter.getAllItems());
+        itemsAdapter.changeItem(presenter.getChangedItem());
+    }
+
+    @Override
+    public void onItemAdded() {
+        itemsAdapter.addItem(presenter.getAddedItem());
+    }
+
+    @Override
+    public void onItemDeleted() {
+        itemsAdapter.deleteItem(presenter.getDeletedItem());
     }
 
 }

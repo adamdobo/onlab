@@ -8,4 +8,7 @@ public interface ItemsView {
 
     void onItemChanged();
 
+    void onItemAdded();
+
+    void onItemDeleted();
 }
