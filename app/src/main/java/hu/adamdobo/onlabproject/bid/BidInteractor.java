@@ -1,7 +1,5 @@
 package hu.adamdobo.onlabproject.bid;
 
-import com.google.firebase.storage.StorageReference;
-
 /**
  * Created by Ádám on 3/17/2018.
  */
@@ -13,7 +11,7 @@ public interface BidInteractor {
 
     void placeBid(String itemID, String highestBid);
 
-    StorageReference getPhotoReference(String itemID);
+    String getDownloadUrl();
 
     boolean checkUser();
 }

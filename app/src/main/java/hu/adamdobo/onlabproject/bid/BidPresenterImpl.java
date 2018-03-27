@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 
 import hu.adamdobo.onlabproject.model.Item;
 
@@ -77,10 +76,9 @@ public class BidPresenterImpl implements BidPresenter {
     }
 
     @Override
-    public void loadItemPhoto(Context context, String itemID, ImageView imageView) {
+    public void loadItemPhoto(Context context, ImageView imageView) {
         Glide.with(context)
-                .using(new FirebaseImageLoader())
-                .load(bidInteractor.getPhotoReference(itemID))
+                .load(bidInteractor.getDownloadUrl())
                 .into(imageView);
     }
 

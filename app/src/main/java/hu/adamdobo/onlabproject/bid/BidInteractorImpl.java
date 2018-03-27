@@ -7,8 +7,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import hu.adamdobo.onlabproject.model.Item;
 
@@ -51,9 +49,8 @@ public class BidInteractorImpl implements BidInteractor {
     }
 
     @Override
-    public StorageReference getPhotoReference(String itemID) {
-        StorageReference photoRef = FirebaseStorage.getInstance().getReference().child(itemID);
-        return photoRef;
+    public String getDownloadUrl() {
+        return bidItem.imageUrl;
     }
 
     @Override

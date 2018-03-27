@@ -23,7 +23,7 @@ public interface BidPresenter {
 
     void validateBid(int highestBid, int currentBid, int startPrice);
 
-    void loadItemPhoto(Context context, String itemID, ImageView imageView);
+    void loadItemPhoto(Context context, ImageView imageView);
 
     boolean checkUser();
 }
