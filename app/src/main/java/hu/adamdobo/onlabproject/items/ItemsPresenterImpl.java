@@ -6,7 +6,7 @@ import hu.adamdobo.onlabproject.model.Item;
  * Created by Ádám on 3/12/2018.
  */
 
-public class ItemsPresenterImpl implements ItemsPresenter{
+public class ItemsPresenterImpl implements ItemsPresenter {
     private ItemsInteractor itemsInteractor;
     private ItemsView itemsView;
 
@@ -46,17 +46,23 @@ public class ItemsPresenterImpl implements ItemsPresenter{
 
     @Override
     public void onItemChanged() {
-        itemsView.onItemChanged();
+        if (itemsView != null) {
+            itemsView.onItemChanged();
+        }
     }
 
     @Override
     public void onItemAdded() {
-        itemsView.onItemAdded();
+        if (itemsView != null) {
+            itemsView.onItemAdded();
+        }
     }
 
     @Override
     public void onItemDeleted() {
-        itemsView.onItemDeleted();
+        if (itemsView != null) {
+            itemsView.onItemDeleted();
+        }
     }
 
 }

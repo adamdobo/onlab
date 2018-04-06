@@ -11,6 +11,7 @@ public class Item {
     public String addedBy;
     public String startPrice;
     public String currentBid;
+    public String highestBidder;
     public String bidExpiry;
     public String imageUrl;
     public String description;

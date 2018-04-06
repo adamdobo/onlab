@@ -88,7 +88,8 @@ public class ItemsInteractorImpl implements ItemsInteractor {
         itemID = itemsRef.getKey();
         item.ID = itemID;
         item.imageUrl = uri.toString();
-        item.addedBy = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        item.addedBy = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        item.highestBidder = "None";
         itemsRef.setValue(item);
     }
 

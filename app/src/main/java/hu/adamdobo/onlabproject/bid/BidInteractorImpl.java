@@ -44,7 +44,7 @@ public class BidInteractorImpl implements BidInteractor {
     @Override
     public void placeBid(String itemID, String highestBid) {
         DatabaseReference itemsRef = db.getReference().child("items");
-
+        itemsRef.child(itemID).child("highestBidder").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
         itemsRef.child(itemID).child("currentBid").setValue(highestBid);
     }
 
