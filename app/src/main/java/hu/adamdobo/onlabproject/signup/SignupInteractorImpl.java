@@ -12,6 +12,9 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import hu.adamdobo.onlabproject.model.User;
 
 /**
@@ -40,7 +43,6 @@ public class SignupInteractorImpl implements SignupInteractor {
                 if (!task.isSuccessful()) {
                     listener.onSignupError();
                 } else {
-                    user.uId = auth.getCurrentUser().getUid();
                     saveUserToFirebase(user);
                     updateUserProfile(user);
                     auth.signOut();
@@ -52,8 +54,11 @@ public class SignupInteractorImpl implements SignupInteractor {
 
     @Override
     public void saveUserToFirebase(User user) {
-        DatabaseReference usersRef = db.getReference().child("users").push();
-        usersRef.setValue(user);
+        DatabaseReference usersRef = db.getReference().child("users");
+        Map<String, User> users = new HashMap<>();
+        users.clear();
+        users.put(auth.getCurrentUser().getUid(), user);
+        usersRef.setValue(users);
     }
 
     @Override

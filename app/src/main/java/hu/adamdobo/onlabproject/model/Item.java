@@ -15,4 +15,5 @@ public class Item {
     public String bidExpiry;
     public String imageUrl;
     public String description;
+    public String status;
 }

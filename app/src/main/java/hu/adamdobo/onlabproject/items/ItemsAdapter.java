@@ -23,12 +23,12 @@ import hu.adamdobo.onlabproject.model.Item;
  * Created by Ádám on 3/13/2018.
  */
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder>  {
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHolder> {
 
     private List<Item> itemList;
     private Context context;
 
-    ItemsAdapter(Context context){
+    public ItemsAdapter(Context context) {
         this.context = context;
         itemList = new ArrayList<>();
     }
@@ -48,13 +48,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         holder.startPrice.setText(item.startPrice);
         holder.expirationDate.setText(item.bidExpiry);
         holder.currentBid.setText(item.currentBid);
-        if(item.imageUrl != null) {
+        if (item.imageUrl != null) {
             Glide.with(context)
                     .load(item.imageUrl)
-                    .into(holder.itemPhoto)
-            ;
+                    .into(holder.itemPhoto);
             holder.itemPhoto.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.itemPhoto.setVisibility(View.INVISIBLE);
         }
 
@@ -77,21 +76,24 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     public void deleteItem(Item deletedItem) {
         int index = -1;
         for (Item item : itemList) {
-            if(item.ID.equals(deletedItem.ID)){
+            if (item.ID.equals(deletedItem.ID)) {
                 index = itemList.indexOf(item);
             }
         }
-        itemList.remove(index);
-        notifyItemRemoved(index);
+        if (index != -1) {
+            itemList.remove(index);
+            notifyItemRemoved(index);
+        }
     }
 
     class ItemsViewHolder extends RecyclerView.ViewHolder {
         TextView itemName, expirationDate, startPrice, currentBid;
         ImageView itemPhoto;
+
         ItemsViewHolder(final View itemView) {
             super(itemView);
             itemName = itemView.findViewById(R.id.itemName);
-            itemPhoto =itemView.findViewById(R.id.itemImage);
+            itemPhoto = itemView.findViewById(R.id.itemImage);
             expirationDate = itemView.findViewById(R.id.expiry);
             startPrice = itemView.findViewById(R.id.startPrice);
             currentBid = itemView.findViewById(R.id.currentBid);
@@ -101,9 +103,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
                     Bundle bundle = new Bundle();
                     String itemID = itemList.get(getAdapterPosition()).ID;
                     bundle.putString("item_id", itemID);
-                    BidFragment bidFragment = (BidFragment)BidFragment.newInstance();
+                    BidFragment bidFragment = (BidFragment) BidFragment.newInstance();
                     bidFragment.setArguments(bundle);
-                    ((DrawerActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, bidFragment).addToBackStack(null).commit();
+                    ((DrawerActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, bidFragment).addToBackStack(null).commit();
                 }
             });
         }

@@ -90,6 +90,7 @@ public class ItemsInteractorImpl implements ItemsInteractor {
         item.imageUrl = uri.toString();
         item.addedBy = FirebaseAuth.getInstance().getCurrentUser().getUid();
         item.highestBidder = "None";
+        item.status = "active";
         itemsRef.setValue(item);
     }
 

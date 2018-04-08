@@ -6,8 +6,6 @@ package hu.adamdobo.onlabproject.model;
 
 public class User {
 
-    public String ID;
-    public String uId;
     public String name;
     public String email;
     public String address;
