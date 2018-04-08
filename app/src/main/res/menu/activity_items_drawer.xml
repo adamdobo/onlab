@@ -7,13 +7,22 @@
         <item
             android:id="@+id/nav_items"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Items" />
+            android:title="@string/items" />
 
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_account_circle_black_24dp"
-            android:title="Profile"
+            android:title="@string/profile"
             />
+        <item
+            android:id="@+id/nav_mybids"
+            android:icon="@drawable/ic_gavel_black_24dp"
+            android:title="@string/my_bids"
+            />
+
+        <item
+            android:id="@+id/nav_myitems"
+            android:title="@string/my_items"/>
 
     </group>
 

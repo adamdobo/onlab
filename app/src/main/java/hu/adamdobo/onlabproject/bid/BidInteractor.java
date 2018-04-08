@@ -14,4 +14,6 @@ public interface BidInteractor {
     String getDownloadUrl();
 
     boolean checkUser();
+
+    void closeBid();
 }

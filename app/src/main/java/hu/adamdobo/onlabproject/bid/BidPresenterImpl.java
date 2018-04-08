@@ -87,4 +87,16 @@ public class BidPresenterImpl implements BidPresenter {
         return bidInteractor.checkUser();
     }
 
+    @Override
+    public void closeBid() {
+        bidInteractor.closeBid();
+    }
+
+    @Override
+    public void onBidClosed() {
+        if(bidView!=null){
+            bidView.onBidClosed();
+        }
+    }
+
 }

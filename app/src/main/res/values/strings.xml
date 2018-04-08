@@ -45,4 +45,10 @@
     <string name="email_update_failed">Email update failed! The email address may be taken by another user. Please try again with a different email address!</string>
     <string name="ongoing_bids">Ongoing bids</string>
     <string name="items_won">Items won</string>
+    <string name="close_bid">Close bid</string>
+    <string name="closed_bids">Closed bids</string>
+    <string name="my_items">My items</string>
+    <string name="my_bids">My bids</string>
+    <string name="profile">Profile</string>
+    <string name="items">Items</string>
 </resources>

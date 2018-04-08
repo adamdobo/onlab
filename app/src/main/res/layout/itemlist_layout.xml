@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_marginBottom="8dp"
     android:background="?android:attr/selectableItemBackground"
-    android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     app:cardElevation="2dp">
 
     <LinearLayout
@@ -20,15 +20,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
+            android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@drawable/placeholderimage"
-            android:layout_weight="1" />
+            android:src="@drawable/placeholderimage" />
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1">
+
             <TextView
                 android:id="@+id/itemName"
                 android:layout_width="match_parent"
@@ -38,31 +39,32 @@
 
             <TextView
                 android:id="@+id/expiry"
-                android:layout_below="@id/itemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/expiryText"
                 android:layout_alignParentRight="true"
+                android:layout_below="@id/itemName"
                 android:layout_marginTop="10dp"
-                android:textSize="13sp"/>
+                android:layout_toLeftOf="@+id/expiryText"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@id/expiryText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/itemName"
                 android:layout_alignParentLeft="true"
-                android:text="@string/bid_expires"
+                android:layout_below="@id/itemName"
                 android:layout_marginTop="10dp"
+                android:text="@string/bid_expires"
                 android:textSize="13sp" />
+
             <TextView
                 android:id="@+id/startPrice"
-                android:layout_below="@id/expiry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_toLeftOf="@+id/startPriceText"
+                android:layout_below="@id/expiry"
                 android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@+id/startPriceText"
                 android:textSize="13sp" />
 
             <TextView
@@ -71,20 +73,20 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@id/expiryText"
-                android:text="@string/start_price"
                 android:layout_marginTop="10dp"
+                android:text="@string/start_price"
                 android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/currentBid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/startPrice"
-                android:gravity="end"
                 android:layout_alignParentRight="true"
-                android:layout_toRightOf="@+id/currentBidText"
+                android:layout_below="@+id/startPrice"
                 android:layout_marginTop="10dp"
-                android:textSize="13sp"/>
+                android:layout_toRightOf="@+id/currentBidText"
+                android:gravity="end"
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@id/currentBidText"
@@ -92,9 +94,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/startPriceText"
-                android:text="@string/current_bid"
                 android:layout_marginTop="10dp"
-                android:textSize="13sp"/>
+                android:text="@string/current_bid"
+                android:textSize="13sp" />
 
 
         </RelativeLayout>

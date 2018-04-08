@@ -69,6 +69,6 @@
         android:layout_width="@dimen/profile_button_width"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/change_password"/>
+        android:text="@string/change_password" />
 
 </LinearLayout>

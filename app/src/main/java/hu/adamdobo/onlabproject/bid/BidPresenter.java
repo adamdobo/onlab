@@ -26,4 +26,8 @@ public interface BidPresenter {
     void loadItemPhoto(Context context, ImageView imageView);
 
     boolean checkUser();
+
+    void closeBid();
+
+    void onBidClosed();
 }

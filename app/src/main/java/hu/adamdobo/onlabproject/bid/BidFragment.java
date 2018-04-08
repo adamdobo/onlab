@@ -22,7 +22,7 @@ import hu.adamdobo.onlabproject.model.Item;
 public class BidFragment extends Fragment implements BidView {
     TextView itemName, bidExpiry, startPrice, currentBid, itemDescription;
     EditText bidEditText;
-    Button bidButton;
+    Button bidButton, closeBidButton;
     ImageView itemImage;
     String itemID;
     BidPresenter presenter;
@@ -44,6 +44,7 @@ public class BidFragment extends Fragment implements BidView {
         itemDescription = contentView.findViewById(R.id.itemDescription);
         bidEditText = contentView.findViewById(R.id.bidEditText);
         bidButton = contentView.findViewById(R.id.bidButton);
+        closeBidButton = contentView.findViewById(R.id.closeBidButton);
         itemImage = contentView.findViewById(R.id.itemImage);
         itemID = getArguments().getString("item_id");
         presenter = new BidPresenterImpl(this, new BidInteractorImpl(), itemID);
@@ -57,6 +58,13 @@ public class BidFragment extends Fragment implements BidView {
                 }else {
                     validateBid(Integer.parseInt(bidEditText.getText().toString()), Integer.parseInt(currentBid.getText().toString()), Integer.parseInt(startPrice.getText().toString()));
                 }
+            }
+        });
+
+        closeBidButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.closeBid();
             }
         });
         return contentView;
@@ -105,7 +113,10 @@ public class BidFragment extends Fragment implements BidView {
     public void checkForBidDisable() {
         if(presenter.checkUser()){
             bidButton.setEnabled(false);
+            bidButton.setVisibility(View.INVISIBLE);
             bidEditText.setEnabled(false);
+            closeBidButton.setEnabled(true);
+            closeBidButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -120,4 +131,12 @@ public class BidFragment extends Fragment implements BidView {
         Snackbar.make(getView(), "You cannot place a lower bid, than the starting price!", Snackbar.LENGTH_LONG).show();
         bidEditText.setText(startPrice.getText());
     }
+
+    @Override
+    public void onBidClosed() {
+        getActivity().getSupportFragmentManager().popBackStack();
+        Snackbar.make(getActivity().getCurrentFocus(), "The bid is now closed. You can check this bid at the 'My items' page!", Snackbar.LENGTH_LONG).show();
+
+    }
+
 }

@@ -23,4 +23,6 @@ public interface BidView {
     void setCurrentBidFailure();
 
     void setStartPriceBidFailure();
+
+    void onBidClosed();
 }
