@@ -1,6 +1,5 @@
 package hu.adamdobo.onlabproject.drawer;
 
-import android.provider.ContactsContract;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
@@ -12,6 +11,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import hu.adamdobo.onlabproject.R;
 import hu.adamdobo.onlabproject.items.ItemsFragment;
 import hu.adamdobo.onlabproject.model.User;
+import hu.adamdobo.onlabproject.mybids.MyBidsFragment;
+import hu.adamdobo.onlabproject.myitems.MyItemsFragment;
 import hu.adamdobo.onlabproject.profile.ProfileFragment;
 
 /**
@@ -44,6 +45,12 @@ public class DrawerInteractorImpl implements DrawerInteractor {
                 break;
             case R.id.nav_profile:
                 listener.fragmentReplace(ProfileFragment.newInstance());
+                break;
+            case R.id.nav_mybids:
+                listener.fragmentReplace(MyBidsFragment.newInstance());
+                break;
+            case R.id.nav_myitems:
+                listener.fragmentReplace(MyItemsFragment.newInstance());
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
