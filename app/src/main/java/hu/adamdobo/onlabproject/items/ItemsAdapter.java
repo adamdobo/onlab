@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -89,6 +90,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     class ItemsViewHolder extends RecyclerView.ViewHolder {
         TextView itemName, expirationDate, startPrice, currentBid;
         ImageView itemPhoto;
+        Button moreButton;
 
         ItemsViewHolder(final View itemView) {
             super(itemView);
@@ -97,7 +99,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
             expirationDate = itemView.findViewById(R.id.expiry);
             startPrice = itemView.findViewById(R.id.startPrice);
             currentBid = itemView.findViewById(R.id.currentBid);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            moreButton = itemView.findViewById(R.id.adaptiveButton);
+            moreButton.setText(R.string.more);
+            moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Bundle bundle = new Bundle();
