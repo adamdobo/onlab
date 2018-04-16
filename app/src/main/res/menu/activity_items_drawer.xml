@@ -24,6 +24,11 @@
             android:id="@+id/nav_myitems"
             android:title="@string/my_items"/>
 
+        <item
+            android:id="@+id/nav_deliveries"
+            android:icon="@drawable/ic_local_shipping_black_24dp"
+            android:title="@string/deliveries" />
+
     </group>
 
 
