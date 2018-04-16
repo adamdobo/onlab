@@ -10,6 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.adamdobo.onlabproject.model.DeliveryItem;
 import hu.adamdobo.onlabproject.model.Item;
 
 /**
@@ -77,5 +78,17 @@ public class MyItemsInteractorImpl implements MyItemsInteractor {
     @Override
     public void setPresenter(MyItemsPresenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void startDelivery(Item item) {
+        DatabaseReference deliveryRef = db.child("deliveryItems").push();
+        item.status = "underDelivery";
+        item.ID = deliveryRef.getKey();
+        DeliveryItem deliveryItem = new DeliveryItem(item);
+        deliveryItem.longitude = 0;
+        deliveryItem.latitude = 0;
+        deliveryRef.setValue(deliveryItem);
+        presenter.onDeliveryItemCreated(deliveryItem);
     }
 }

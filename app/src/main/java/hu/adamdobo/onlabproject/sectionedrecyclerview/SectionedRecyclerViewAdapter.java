@@ -2,7 +2,6 @@ package hu.adamdobo.onlabproject.sectionedrecyclerview;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,7 @@ import hu.adamdobo.onlabproject.R;
 import hu.adamdobo.onlabproject.bid.BidFragment;
 import hu.adamdobo.onlabproject.drawer.DrawerActivity;
 import hu.adamdobo.onlabproject.model.Item;
+import hu.adamdobo.onlabproject.myitems.OnDeliveryClickedListener;
 
 /**
  * Created by Ádám on 4/7/2018.
@@ -28,15 +28,17 @@ import hu.adamdobo.onlabproject.model.Item;
 public class SectionedRecyclerViewAdapter extends SectionRecyclerViewAdapter<SectionHeader, Item, SectionedRecyclerViewAdapter.SectionViewHolder, SectionedRecyclerViewAdapter.ItemViewHolder> {
 
     private Context context;
+    private OnDeliveryClickedListener listener;
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int flatPosition) {
         super.onBindViewHolder(holder, flatPosition);
     }
 
-    public SectionedRecyclerViewAdapter(Context context, List<SectionHeader> sectionItemList) {
+    public SectionedRecyclerViewAdapter(Context context, List<SectionHeader> sectionItemList, OnDeliveryClickedListener listener) {
         super(context, sectionItemList);
         this.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -75,7 +77,8 @@ public class SectionedRecyclerViewAdapter extends SectionRecyclerViewAdapter<Sec
             itemViewHolder.adaptiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Snackbar.make(v, "Start delivery pressed!", Snackbar.LENGTH_LONG).show();
+                    listener.onDeliveryClicked(item);
+
                 }
             });
         }else{

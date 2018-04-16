@@ -17,4 +17,6 @@ public interface MyItemsInteractor {
     List<Item> getOngoingBids();
 
     void setPresenter(MyItemsPresenter presenter);
+
+    void startDelivery(Item item);
 }

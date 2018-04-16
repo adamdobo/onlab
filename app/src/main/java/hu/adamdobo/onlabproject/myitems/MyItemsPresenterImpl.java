@@ -2,6 +2,7 @@ package hu.adamdobo.onlabproject.myitems;
 
 import java.util.List;
 
+import hu.adamdobo.onlabproject.model.DeliveryItem;
 import hu.adamdobo.onlabproject.model.Item;
 
 /**
@@ -47,5 +48,17 @@ public class MyItemsPresenterImpl implements MyItemsPresenter {
             myItemsView.setOngoingBidsSection();
         }
 
+    }
+
+    @Override
+    public void startDelivery(Item item) {
+        myItemsInteractor.startDelivery(item);
+    }
+
+    @Override
+    public void onDeliveryItemCreated(DeliveryItem deliveryItem) {
+        if(myItemsView!=null){
+            myItemsView.startDeliveryService(deliveryItem);
+        }
     }
 }

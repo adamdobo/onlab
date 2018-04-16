@@ -2,6 +2,7 @@ package hu.adamdobo.onlabproject.myitems;
 
 import java.util.List;
 
+import hu.adamdobo.onlabproject.model.DeliveryItem;
 import hu.adamdobo.onlabproject.model.Item;
 
 /**
@@ -19,4 +20,8 @@ public interface MyItemsPresenter {
     void onClosedBidsLoaded();
 
     void onOngoingBidsLoaded();
+
+    void startDelivery(Item item);
+
+    void onDeliveryItemCreated(DeliveryItem deliveryItem);
 }
