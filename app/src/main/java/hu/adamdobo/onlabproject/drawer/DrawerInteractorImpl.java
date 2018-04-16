@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import hu.adamdobo.onlabproject.R;
+import hu.adamdobo.onlabproject.delivery.DeliveryFragment;
 import hu.adamdobo.onlabproject.items.ItemsFragment;
 import hu.adamdobo.onlabproject.model.User;
 import hu.adamdobo.onlabproject.mybids.MyBidsFragment;
@@ -51,6 +52,9 @@ public class DrawerInteractorImpl implements DrawerInteractor {
                 break;
             case R.id.nav_myitems:
                 listener.fragmentReplace(MyItemsFragment.newInstance());
+                break;
+            case R.id.nav_deliveries:
+                listener.fragmentReplace(DeliveryFragment.newInstance());
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

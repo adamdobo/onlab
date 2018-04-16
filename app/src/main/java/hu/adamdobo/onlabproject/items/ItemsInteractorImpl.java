@@ -24,7 +24,6 @@ public class ItemsInteractorImpl implements ItemsInteractor {
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     ItemsPresenter presenter;
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    private Uri downloadUrl;
     private String itemID;
     private Item addedItem;
     private Item deletedItem;

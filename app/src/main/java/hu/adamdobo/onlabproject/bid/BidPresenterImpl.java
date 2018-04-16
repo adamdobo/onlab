@@ -99,4 +99,11 @@ public class BidPresenterImpl implements BidPresenter {
         }
     }
 
+    @Override
+    public void onBidChanged(Item item) {
+        if(bidView!=null){
+            bidView.onBidChanged(item);
+        }
+    }
+
 }

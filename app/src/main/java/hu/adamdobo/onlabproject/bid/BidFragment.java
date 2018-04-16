@@ -101,7 +101,7 @@ public class BidFragment extends Fragment implements BidView {
 
     @Override
     public void setBidSuccess() {
-        Snackbar.make(getView(), "Successful bid!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), R.string.successfull_bid, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -113,7 +113,7 @@ public class BidFragment extends Fragment implements BidView {
     public void checkForBidDisable() {
         if(presenter.checkUser()){
             bidButton.setEnabled(false);
-            bidButton.setVisibility(View.INVISIBLE);
+            bidButton.setVisibility(View.GONE);
             bidEditText.setEnabled(false);
             closeBidButton.setEnabled(true);
             closeBidButton.setVisibility(View.VISIBLE);
@@ -122,21 +122,26 @@ public class BidFragment extends Fragment implements BidView {
 
     @Override
     public void setCurrentBidFailure() {
-        Snackbar.make(getView(), "You cannot place a lower bid, than the current highest bid!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), R.string.lower_than_highest, Snackbar.LENGTH_LONG).show();
         bidEditText.setText(currentBid.getText());
     }
 
     @Override
     public void setStartPriceBidFailure() {
-        Snackbar.make(getView(), "You cannot place a lower bid, than the starting price!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getView(), R.string.lower_than_starting, Snackbar.LENGTH_LONG).show();
         bidEditText.setText(startPrice.getText());
     }
 
     @Override
     public void onBidClosed() {
         getActivity().getSupportFragmentManager().popBackStack();
-        Snackbar.make(getActivity().getCurrentFocus(), "The bid is now closed. You can check this bid at the 'My items' page!", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getActivity().getCurrentFocus(), R.string.bid_closed, Snackbar.LENGTH_LONG).show();
 
+    }
+
+    @Override
+    public void onBidChanged(Item item) {
+        currentBid.setText(item.currentBid);
     }
 
 }

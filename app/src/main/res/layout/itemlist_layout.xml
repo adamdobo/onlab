@@ -4,9 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    android:background="?android:attr/selectableItemBackground"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
     app:cardElevation="2dp">
 
     <LinearLayout
@@ -21,8 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:src="@drawable/placeholderimage" />
+            android:adjustViewBounds="true" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -45,7 +41,9 @@
                 android:layout_below="@id/itemName"
                 android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@+id/expiryText"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:layout_toStartOf="@+id/expiryText"
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@id/expiryText"
@@ -55,7 +53,8 @@
                 android:layout_below="@id/itemName"
                 android:layout_marginTop="10dp"
                 android:text="@string/bid_expires"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/startPrice"
@@ -65,7 +64,9 @@
                 android:layout_below="@id/expiry"
                 android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@+id/startPriceText"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:layout_toStartOf="@+id/startPriceText"
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@id/startPriceText"
@@ -75,7 +76,8 @@
                 android:layout_below="@id/expiryText"
                 android:layout_marginTop="10dp"
                 android:text="@string/start_price"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/currentBid"
@@ -86,7 +88,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/currentBidText"
                 android:gravity="end"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:layout_toEndOf="@+id/currentBidText"
+                android:layout_alignParentEnd="true" />
 
             <TextView
                 android:id="@id/currentBidText"
@@ -96,9 +100,20 @@
                 android:layout_below="@+id/startPriceText"
                 android:layout_marginTop="10dp"
                 android:text="@string/current_bid"
-                android:textSize="13sp" />
-
-
+                android:textSize="13sp"
+                android:layout_alignParentStart="true" />
+            <Button
+                android:id="@+id/adaptiveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="170dp"
+                android:padding="8dp"
+                android:layout_below="@+id/currentBid"
+                android:background="?selectableItemBackground"
+                android:textColor="@color/colorAccent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

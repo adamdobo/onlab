@@ -59,7 +59,8 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
 
 
     @Override
-    public void saveItemWithPicture(Item item, byte[] bytes) {presenter.saveItemWithPicture(item, bytes);
+    public void saveItemWithPicture(Item item, byte[] bytes) {
+        presenter.saveItemWithPicture(item, bytes);
     }
 
     @Override

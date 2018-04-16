@@ -6,11 +6,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import hu.adamdobo.onlabproject.model.Item;
 
@@ -25,15 +25,30 @@ public class BidInteractorImpl implements BidInteractor {
 
 
     @Override
-    public void subscribeToItemChange(String itemID) {
+    public void subscribeToItemChange(final String itemID) {
         DatabaseReference itemsRef = db.getReference().child("items");
-        itemsRef.child(itemID).addValueEventListener(new ValueEventListener() {
+        itemsRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if (dataSnapshot.exists() && itemID.equals(dataSnapshot.getKey())) {
                     bidItem = dataSnapshot.getValue(Item.class);
                     presenter.onItemReceived(bidItem);
                 }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                presenter.onBidChanged(dataSnapshot.getValue(Item.class));
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                presenter.onBidClosed();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -41,6 +56,7 @@ public class BidInteractorImpl implements BidInteractor {
 
             }
         });
+
     }
 
     @Override
@@ -84,6 +100,5 @@ public class BidInteractorImpl implements BidInteractor {
         bidItem.ID = closedBidsRef.getKey();
         bidItem.status = "closed";
         closedBidsRef.setValue(bidItem);
-        presenter.onBidClosed();
     }
 }
