@@ -6,7 +6,7 @@ package hu.adamdobo.onlabproject.profile;
 
 public interface ProfileView {
 
-    void showUserInfo();
+    void showUserInfo(String username, String email, String address);
 
     void setPasswordChangeError();
 

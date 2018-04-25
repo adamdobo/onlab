@@ -7,6 +7,9 @@ package hu.adamdobo.onlabproject.profile;
 public interface ProfileInteractor {
 
 
+    void getUserAddressFromDatabase();
+
+    String getUserAddress();
 
     interface OnPasswordUpdateFinishedListener{
         void onPasswordChangeError();
@@ -27,6 +30,8 @@ public interface ProfileInteractor {
     String getUserName();
 
     String getUserEmail();
+
+    void setPresenter(ProfilePresenter presenter);
 
     void updatePassword(String oldPassword, String newPassword, OnPasswordUpdateFinishedListener listener);
 

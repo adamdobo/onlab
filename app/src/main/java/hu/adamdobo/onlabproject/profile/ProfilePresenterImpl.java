@@ -13,22 +13,14 @@ public class ProfilePresenterImpl implements ProfilePresenter, ProfileInteractor
     public ProfilePresenterImpl(ProfileView profileView, ProfileInteractor profileInteractor) {
         this.profileView = profileView;
         this.profileInteractor = profileInteractor;
+        profileInteractor.setPresenter(this);
+        profileInteractor.getUserAddressFromDatabase();
     }
 
 
     @Override
     public void onDestroy() {
         profileView = null;
-    }
-
-    @Override
-    public String getUserName() {
-        return profileInteractor.getUserName();
-    }
-
-    @Override
-    public String getUserEmail() {
-        return profileInteractor.getUserEmail();
     }
 
     @Override
@@ -60,6 +52,14 @@ public class ProfilePresenterImpl implements ProfilePresenter, ProfileInteractor
     @Override
     public void changeEmail(String oldEmail, String newEmail, String password) {
         profileInteractor.updateEmail(oldEmail, newEmail, password, this);
+    }
+
+
+    @Override
+    public void onUserInfoReady() {
+        if(profileView!=null){
+            profileView.showUserInfo(profileInteractor.getUserName(), profileInteractor.getUserEmail(), profileInteractor.getUserAddress());
+        }
     }
 
     @Override

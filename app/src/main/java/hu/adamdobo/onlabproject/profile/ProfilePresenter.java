@@ -8,11 +8,9 @@ public interface ProfilePresenter {
 
     void onDestroy();
 
-    String getUserName();
-
-    String getUserEmail();
-
     void changePassword(String oldPassword, String newPassword);
 
     void changeEmail(String oldEmail, String newEmail, String password);
+
+    void onUserInfoReady();
 }
