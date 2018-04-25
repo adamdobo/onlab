@@ -21,4 +21,6 @@ public interface LoginView {
     void setPasswordEmptyError();
 
     void setEmailEmptyError();
+
+    void clearErrors();
 }

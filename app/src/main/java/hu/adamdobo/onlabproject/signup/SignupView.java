@@ -16,7 +16,17 @@ public interface SignupView {
 
     void setPasswordEmptyError();
 
+    void navigateToLogin();
+
+    void setAddressEmptyError();
+
+    void setNickNameEmptyError();
+
     void setSignupError();
 
-    void navigateToLogin();
+    void setPasswordMismatchError();
+
+    void clearErrors();
+
+    void setPasswordTooShortError();
 }

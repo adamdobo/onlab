@@ -11,11 +11,18 @@ public interface SignupInteractor {
     interface OnSignupFinishedListener {
         void onEmailEmptyError();
         void onPasswordEmptyError();
-        void onSignupError();
         void onSuccess();
+        void onAddressEmptyError();
+        void onNickNameEmptyError();
+
+        void onSignupError();
+
+        void onPasswordsMismatchError();
+
+        void onPasswordTooShort();
     }
 
-    void signup(User user, String password, final OnSignupFinishedListener listener, final SignupView signupView);
+    void signup(User user, String password, String passwordAgain, final OnSignupFinishedListener listener);
 
     void saveUserToFirebase(User user);
 

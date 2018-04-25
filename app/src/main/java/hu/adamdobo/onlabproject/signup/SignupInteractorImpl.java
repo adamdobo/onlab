@@ -24,13 +24,35 @@ public class SignupInteractorImpl implements SignupInteractor {
 
 
     @Override
-    public void signup(final User user, String password, final OnSignupFinishedListener listener, SignupView signupView) {
+    public void signup(final User user, String password, String passwordAgain, final OnSignupFinishedListener listener) {
+        int errors = 0;
         if (TextUtils.isEmpty(user.email)) {
             listener.onEmailEmptyError();
-            return;
+            errors++;
         }
         if (TextUtils.isEmpty(password)) {
             listener.onPasswordEmptyError();
+            errors++;
+        }
+        if(TextUtils.isEmpty(user.address)){
+            listener.onAddressEmptyError();
+            errors++;
+        }
+        if(TextUtils.isEmpty(user.nickname)){
+            listener.onNickNameEmptyError();
+            errors++;
+        }
+
+        if(password.length() < 6){
+            listener.onPasswordTooShort();
+            errors++;
+        }
+
+        if(!password.equals(passwordAgain)){
+            listener.onPasswordsMismatchError();
+            errors++;
+        }
+        if(errors>0){
             return;
         }
 

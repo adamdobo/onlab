@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.widget.FrameLayout;
 
 import hu.adamdobo.onlabproject.R;
 import hu.adamdobo.onlabproject.dialog.NewItemDialog;
@@ -22,6 +24,7 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
     private ItemsPresenter presenter;
     private RecyclerView recyclerView;
     private ItemsAdapter itemsAdapter;
+    private FrameLayout progressBarHolder;
 
     @Override
     public void onDestroy(){
@@ -34,6 +37,7 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         presenter = new ItemsPresenterImpl(this, new ItemsInteractorImpl());
         View contentView = inflater.inflate(R.layout.fragment_items, container, false);
+        progressBarHolder = contentView.findViewById(R.id.progressBarHolder);
         setRecyclerView(contentView);
         FloatingActionButton fab = (FloatingActionButton) contentView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +80,22 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
     @Override
     public void onItemDeleted() {
         itemsAdapter.deleteItem(presenter.getDeletedItem());
+    }
+
+    @Override
+    public void hideProgress() {
+        AlphaAnimation outAnimation = new AlphaAnimation(1f, 0f);
+        outAnimation.setDuration(200);
+        progressBarHolder.setAnimation(outAnimation);
+        progressBarHolder.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showProgress() {
+        AlphaAnimation inAnimation = new AlphaAnimation(0f, 1f);
+        inAnimation.setDuration(200);
+        progressBarHolder.setAnimation(inAnimation);
+        progressBarHolder.setVisibility(View.VISIBLE);
     }
 
 }

@@ -23,4 +23,6 @@ public interface ItemsPresenter {
     void onItemAdded();
 
     void onItemDeleted();
+
+    void onItemSaveSuccess();
 }

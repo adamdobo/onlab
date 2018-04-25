@@ -87,7 +87,6 @@ public class BidFragment extends Fragment implements BidView {
     @Override
     public void updateUI(Item item) {
         itemName.setText(item.name);
-        bidExpiry.setText(item.bidExpiry);
         startPrice.setText(item.startPrice);
         currentBid.setText(item.currentBid);
         itemDescription.setText(item.description);

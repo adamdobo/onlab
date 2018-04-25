@@ -19,7 +19,7 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLog
         if (loginView != null) {
             loginView.showProgress();
         }
-        loginInteractor.login(username, password, this, loginView);
+        loginInteractor.login(username, password, this);
     }
 
     @Override

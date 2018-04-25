@@ -17,17 +17,21 @@ public class LoginInteractorImpl implements LoginInteractor {
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
-    public void login(String email, String password, final OnLoginFinishedListener listener, LoginView view) {
+    public void login(String email, String password, final OnLoginFinishedListener listener) {
+        int errors = 0;
         if (TextUtils.isEmpty(email)) {
             listener.onEmailEmptyError();
-            return;
+            errors++;
         }
         if (TextUtils.isEmpty(password)) {
             listener.onPasswordEmptyError();
+            errors++;
+        }
+        if(errors>0){
             return;
         }
         auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener((Activity) view, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {

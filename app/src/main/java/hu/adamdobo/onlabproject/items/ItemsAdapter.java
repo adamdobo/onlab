@@ -47,7 +47,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         Item item = itemList.get(position);
         holder.itemName.setText(item.name);
         holder.startPrice.setText(item.startPrice);
-        holder.expirationDate.setText(item.bidExpiry);
         holder.currentBid.setText(item.currentBid);
         if (item.imageUrl != null) {
             Glide.with(context)

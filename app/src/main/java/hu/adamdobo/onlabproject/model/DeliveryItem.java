@@ -15,7 +15,7 @@ public class DeliveryItem extends Item {
         startPrice = item.startPrice;
         currentBid = item.currentBid;
         highestBidder = item.highestBidder;
-        bidExpiry = item.bidExpiry;
+        buyoutPrice = item.buyoutPrice;
         imageUrl = item.imageUrl;
         description = item.description;
         status = item.status;

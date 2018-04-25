@@ -13,7 +13,7 @@ public interface LoginInteractor {
         void onPasswordEmptyError();
     }
 
-    void login(String username, String password, final OnLoginFinishedListener listener, final LoginView view);
+    void login(String username, String password, final OnLoginFinishedListener listener);
 
     boolean isUserLoggedIn();
 }

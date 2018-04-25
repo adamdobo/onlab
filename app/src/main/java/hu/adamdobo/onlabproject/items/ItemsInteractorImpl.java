@@ -90,7 +90,12 @@ public class ItemsInteractorImpl implements ItemsInteractor {
         item.addedBy = FirebaseAuth.getInstance().getCurrentUser().getUid();
         item.highestBidder = "None";
         item.status = "active";
-        itemsRef.setValue(item);
+        itemsRef.setValue(item).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                presenter.onItemSaveSuccess();
+            }
+        });
     }
 
     @Override

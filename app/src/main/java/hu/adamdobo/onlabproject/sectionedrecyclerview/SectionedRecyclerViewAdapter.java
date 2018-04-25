@@ -62,7 +62,6 @@ public class SectionedRecyclerViewAdapter extends SectionRecyclerViewAdapter<Sec
     public void onBindChildViewHolder(ItemViewHolder itemViewHolder, int i, int i1, final Item item) {
         itemViewHolder.itemName.setText(item.name);
         itemViewHolder.startPrice.setText(item.startPrice);
-        itemViewHolder.expirationDate.setText(item.bidExpiry);
         itemViewHolder.currentBid.setText(item.currentBid);
         if (item.imageUrl != null) {
             Glide.with(context)

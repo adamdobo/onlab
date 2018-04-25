@@ -11,4 +11,8 @@ public interface ItemsView {
     void onItemAdded();
 
     void onItemDeleted();
+
+    void hideProgress();
+
+    void showProgress();
 }

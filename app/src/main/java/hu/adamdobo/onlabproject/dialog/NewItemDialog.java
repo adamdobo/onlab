@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,12 +39,11 @@ import static android.app.Activity.RESULT_OK;
  * Created by Ádám on 3/13/2018.
  */
 
-public class NewItemDialog extends AppCompatDialogFragment implements DatePickerDialogFragment.OnDateSelectedListener {
+public class NewItemDialog extends AppCompatDialogFragment{
 
     private static final int REQUEST_IMAGE_CAPTURE = 100;
     public static final String TAG = "NewItemDialog";
-    private EditText nameEditText, startPriceEditText, descriptionEditText;
-    private TextView expiryTextView;
+    private EditText nameEditText, startPriceEditText, descriptionEditText, buyoutEditText;
     private ImageView photoImageView;
     private String mCurrentPhotoPath;
     private static SaveItemCallbackListener listener;
@@ -79,20 +77,12 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
         nameEditText = contentView.findViewById(R.id.item_name);
         startPriceEditText = contentView.findViewById(R.id.item_startprice);
         descriptionEditText = contentView.findViewById(R.id.item_description);
-        expiryTextView = contentView.findViewById(R.id.item_expiry);
+        buyoutEditText = contentView.findViewById(R.id.item_buyout);
         photoImageView = contentView.findViewById(R.id.item_photo);
         photoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requestNeededPermission();
-            }
-        });
-        final DatePickerDialogFragment datePickerDialogFragment = new DatePickerDialogFragment();
-        datePickerDialogFragment.setOnDateSelectedListener(this);
-        expiryTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerDialogFragment.show(getFragmentManager(), DatePickerDialogFragment.TAG);
             }
         });
 
@@ -208,13 +198,7 @@ public class NewItemDialog extends AppCompatDialogFragment implements DatePicker
         item.startPrice = startPriceEditText.getText().toString();
         item.currentBid = "None";
         item.description = descriptionEditText.getText().toString();
-        item.bidExpiry = expiryTextView.getText().toString();
+        item.buyoutPrice = buyoutEditText.getText().toString();
         return item;
-    }
-
-    @Override
-    public void onDateSelected(int year, int month, int day) {
-        String expiry = year + "-" + (month + 1) + "-" + day;
-        expiryTextView.setText(expiry);
     }
 }

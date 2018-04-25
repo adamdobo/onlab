@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp" />
 
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -21,4 +22,5 @@
         android:tint="@android:color/white"
         app:srcCompat="@android:drawable/ic_input_add" />
 
+    <include layout="@layout/layout_progressbar" />
 </android.support.design.widget.CoordinatorLayout>

@@ -24,25 +24,31 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp" />
 
+
+
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/layout_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                app:errorEnabled="true">
 
                 <EditText
-                    android:id="@+id/input_name"
+                    android:id="@+id/input_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/name"
-                    android:inputType="textPersonName" />
+                    android:hint="@string/nickname"
+                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/layout_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                app:errorEnabled="true">
 
                 <EditText
                     android:id="@+id/input_address"
@@ -54,10 +60,12 @@
 
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/layout_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                app:errorEnabled="true">
 
                 <EditText
                     android:id="@+id/input_email"
@@ -69,20 +77,7 @@
 
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp">
-
-                <EditText
-                    android:id="@+id/input_nickname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/nickname"
-                    android:inputType="text" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
+                android:id="@+id/layout_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -98,6 +93,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/layout_reenter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -128,17 +124,11 @@
                 android:layout_marginBottom="24dp"
                 android:gravity="center"
                 android:text="@string/already_a_member"
-                android:textSize="16dip" />
+                android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:visibility="gone" />
+    <include layout="@layout/layout_progressbar" />
+
 </android.support.design.widget.CoordinatorLayout>

@@ -6,14 +6,12 @@ package hu.adamdobo.onlabproject.model;
 
 public class User {
 
-    public String name;
     public String email;
     public String address;
     public String nickname;
 
 
-    public User(String name, String email, String address, String nickname) {
-        this.name = name;
+    public User(String email, String address, String nickname) {
         this.email = email;
         this.address = address;
         this.nickname = nickname;

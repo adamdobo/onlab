@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import hu.adamdobo.onlabproject.R;
@@ -21,7 +23,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private Button loginBtn;
     private TextView signUpLink;
     private EditText emailInput, passwordInput;
-    private ProgressBar progressBar;
+    private TextInputLayout emailLayout, passwordLayout;
+    private FrameLayout progressBarHolder;
     private LoginPresenter presenter;
 
     @Override
@@ -37,12 +40,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         signUpLink = findViewById(R.id.link_signup);
         emailInput = findViewById(R.id.input_email);
         passwordInput = findViewById(R.id.input_password);
-        progressBar = findViewById(R.id.loginProgressBar);
+        emailLayout = findViewById(R.id.layout_email);
+        passwordLayout = findViewById(R.id.layout_password);
+        progressBarHolder = findViewById(R.id.progressBarHolder);
 
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clearErrors();
                 InputMethodManager inputManager = (InputMethodManager)
                         getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -69,12 +75,18 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
+        AlphaAnimation inAnimation = new AlphaAnimation(0f, 1f);
+        inAnimation.setDuration(200);
+        progressBarHolder.setAnimation(inAnimation);
+        progressBarHolder.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
+        AlphaAnimation outAnimation = new AlphaAnimation(1f, 0f);
+        outAnimation.setDuration(200);
+        progressBarHolder.setAnimation(outAnimation);
+        progressBarHolder.setVisibility(View.GONE);
     }
 
     @Override
@@ -98,12 +110,18 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     @Override
     public void setPasswordEmptyError() {
-        passwordInput.setError(getString(R.string.password_error));
+        passwordLayout.setError(getString(R.string.password_error));
     }
 
     @Override
     public void setEmailEmptyError() {
-        emailInput.setError(getString(R.string.email_error));
+        emailLayout.setError(getString(R.string.email_error));
+    }
+
+    @Override
+    public void clearErrors() {
+        emailLayout.setError(null);
+        passwordLayout.setError(null);
     }
 
     @Override

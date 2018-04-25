@@ -8,7 +8,7 @@ import hu.adamdobo.onlabproject.model.User;
 
 public interface SignupPresenter {
 
-    void registerUser(User user, String password);
+    void registerUser(User user, String password, String passwordAgain);
 
     void onDestroy();
 }

@@ -53,21 +53,26 @@
             android:layout_marginTop="8dp">
 
             <EditText
+                android:id="@+id/item_buyout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:inputType="numberDecimal" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
                 android:id="@+id/item_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"
-                android:inputType="textMultiLine" />
+                android:inputType="textLongMessage" />
         </android.support.design.widget.TextInputLayout>
-
-        <TextView
-            android:id="@+id/item_expiry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:gravity="center"
-            android:hint="@string/bid_expiry"
-            android:textSize="20sp" />
     </LinearLayout>
 
 </ScrollView>

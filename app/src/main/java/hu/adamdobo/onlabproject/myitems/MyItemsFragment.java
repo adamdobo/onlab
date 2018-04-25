@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.adamdobo.onlabproject.R;
-import hu.adamdobo.onlabproject.delivery.MyLocationService;
+import hu.adamdobo.onlabproject.locationservice.MyLocationService;
 import hu.adamdobo.onlabproject.model.DeliveryItem;
 import hu.adamdobo.onlabproject.model.Item;
 import hu.adamdobo.onlabproject.sectionedrecyclerview.SectionHeader;

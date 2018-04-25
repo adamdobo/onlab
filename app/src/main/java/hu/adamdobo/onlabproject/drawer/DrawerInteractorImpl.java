@@ -34,7 +34,7 @@ public class DrawerInteractorImpl implements DrawerInteractor {
     @Override
     public User getUserInfo() {
         FirebaseUser firebaseUser = auth.getCurrentUser();
-        User returnUser = new User(null, firebaseUser.getEmail(), null, firebaseUser.getDisplayName());
+        User returnUser = new User(firebaseUser.getEmail(), null, firebaseUser.getDisplayName());
         return returnUser;
     }
 

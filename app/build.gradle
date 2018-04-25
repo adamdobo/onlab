@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "hu.adamdobo.onlabproject"
-        minSdkVersion 15
+        minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -37,7 +37,12 @@ dependencies {
     implementation 'com.android.support:cardview-v7:26.1.0'
     compile 'com.firebaseui:firebase-ui-storage:0.6.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    compile 'com.github.Quatja:Vorolay:1.0.1'
 }
+
+
+
+
 
 
 

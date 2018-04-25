@@ -25,7 +25,10 @@ public class ItemsPresenterImpl implements ItemsPresenter {
 
     @Override
     public void saveItemWithPicture(Item item, byte[] bytes) {
-        itemsInteractor.saveItemWithPicture(item, bytes);
+        if(itemsView!=null) {
+            itemsView.showProgress();
+            itemsInteractor.saveItemWithPicture(item, bytes);
+        }
     }
 
     @Override
@@ -62,6 +65,13 @@ public class ItemsPresenterImpl implements ItemsPresenter {
     public void onItemDeleted() {
         if (itemsView != null) {
             itemsView.onItemDeleted();
+        }
+    }
+
+    @Override
+    public void onItemSaveSuccess() {
+        if(itemsView!=null){
+            itemsView.hideProgress();
         }
     }
 
