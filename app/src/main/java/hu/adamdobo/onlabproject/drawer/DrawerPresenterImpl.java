@@ -38,6 +38,11 @@ public class DrawerPresenterImpl implements DrawerPresenter, DrawerListener{
     }
 
     @Override
+    public void setCurrentMenuItem(int itemId) {
+        drawerInteractor.setCurrentMenuItem(itemId);
+    }
+
+    @Override
     public void fragmentReplace(Fragment fragment) {
         drawerView.navigateUsingTo(fragment);
     }

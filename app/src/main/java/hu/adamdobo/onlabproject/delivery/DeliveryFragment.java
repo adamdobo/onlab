@@ -20,10 +20,17 @@ public class DeliveryFragment extends Fragment implements DeliveryView{
     private DeliveryAdapter deliveryAdapter;
     private DeliveryPresenter presenter;
 
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         presenter = new DeliveryPresenterImpl(this, new DeliveryInteractorImpl());
+        getActivity().setTitle(R.string.deliveries);
         View contentView = inflater.inflate(R.layout.simple_recyclerview, container, false);
         setRecyclerView(contentView);
         return contentView;

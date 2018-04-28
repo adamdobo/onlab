@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import hu.adamdobo.onlabproject.R;
 import hu.adamdobo.onlabproject.items.ItemsFragment;
+import hu.adamdobo.onlabproject.locationservice.MyNotificationManager;
 import hu.adamdobo.onlabproject.login.LoginActivity;
 import hu.adamdobo.onlabproject.model.User;
 
@@ -25,11 +26,13 @@ public class DrawerActivity extends AppCompatActivity
     private DrawerPresenter presenter;
     private TextView emailTextView, nameTextView;
     DrawerLayout drawer;
+    NavigationView navigationView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyNotificationManager myNotificationManager = new MyNotificationManager(this);
         setContentView(R.layout.activity_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,19 +42,19 @@ public class DrawerActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        setDefaultFragment(navigationView);
-        setNavigationHeader(navigationView);
         presenter = new DrawerPresenterImpl(this, new DrawerInteractorImpl());
+        setDefaultFragment();
+        setNavigationHeader();
         presenter.setUserInfo();
     }
 
-    private void setDefaultFragment(NavigationView navigationView) {
+    private void setDefaultFragment() {
         navigationView.getMenu().getItem(0).setChecked(true);
+        presenter.setCurrentMenuItem(navigationView.getMenu().getItem(0).getItemId());
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, ItemsFragment.newInstance()).commit();
+                .replace(R.id.content_frame,ItemsFragment.newInstance()).commit();
     }
 
     @Override
@@ -64,7 +67,6 @@ public class DrawerActivity extends AppCompatActivity
                 super.onBackPressed();
             }else {
                 getSupportFragmentManager().popBackStack();
-
             }
         }
     }
@@ -92,6 +94,7 @@ public class DrawerActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         presenter.navigationItemSelected(item, drawer);
         return true;
@@ -114,12 +117,17 @@ public class DrawerActivity extends AppCompatActivity
     }
 
     @Override
+    public void setActiveMenuItem(int itemPlace) {
+        navigationView.getMenu().getItem(itemPlace).setChecked(true);
+    }
+
+    @Override
     public void navigateUsingTo(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, fragment).addToBackStack(null).commit();
     }
 
-    public void setNavigationHeader(NavigationView navigationView) {
+    public void setNavigationHeader() {
         View hView = navigationView.getHeaderView(0);
         nameTextView = hView.findViewById(R.id.nameTextView);
         emailTextView = hView.findViewById(R.id.emailTextView);

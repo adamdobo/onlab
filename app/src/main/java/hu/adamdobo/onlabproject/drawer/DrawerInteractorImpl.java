@@ -24,6 +24,7 @@ public class DrawerInteractorImpl implements DrawerInteractor {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private int currentMenuItem;
 
 
     @Override
@@ -40,23 +41,37 @@ public class DrawerInteractorImpl implements DrawerInteractor {
 
     @Override
     public void navigateTo(MenuItem item, DrawerLayout drawerLayout, DrawerListener listener) {
+        if(currentMenuItem == item.getItemId()){
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return;
+        }
         switch (item.getItemId()){
             case R.id.nav_items:
+                currentMenuItem = R.id.nav_items;
                 listener.fragmentReplace(ItemsFragment.newInstance());
                 break;
             case R.id.nav_profile:
+                currentMenuItem = R.id.nav_profile;
                 listener.fragmentReplace(ProfileFragment.newInstance());
                 break;
             case R.id.nav_mybids:
+                currentMenuItem = R.id.nav_mybids;
                 listener.fragmentReplace(MyBidsFragment.newInstance());
                 break;
             case R.id.nav_myitems:
+                currentMenuItem = R.id.nav_myitems;
                 listener.fragmentReplace(MyItemsFragment.newInstance());
                 break;
             case R.id.nav_deliveries:
+                currentMenuItem = R.id.nav_deliveries;
                 listener.fragmentReplace(DeliveryFragment.newInstance());
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public void setCurrentMenuItem(int itemId) {
+        currentMenuItem = itemId;
     }
 }

@@ -13,4 +13,5 @@ public interface DrawerView {
     void navigateUsingTo(Fragment fragment);
     void navigateToLogin();
     void showUserInfo(User userInfo);
+    void setActiveMenuItem(int itemPlace);
 }
