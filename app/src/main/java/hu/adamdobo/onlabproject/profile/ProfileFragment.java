@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,17 +21,16 @@ import hu.adamdobo.onlabproject.dialog.ChangePasswordDialog;
 public class ProfileFragment extends Fragment implements ProfileView, ChangeEmailCallbackListener, ChangePasswordCallbackListener {
     TextView userName, userEmail, userAddress;
     ProfilePresenter presenter;
-    Toolbar toolbar;
     Button changePW, changeEmail;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.fragment_profile, container, false);
+        getActivity().setTitle(R.string.profile);
         userEmail = contentView.findViewById(R.id.userEmail);
         userName = contentView.findViewById(R.id.userName);
         userAddress = contentView.findViewById(R.id.userAddress);
-        toolbar = contentView.findViewById(R.id.toolbar);
         presenter = new ProfilePresenterImpl(this, new ProfileInteractorImpl());
         changeEmail = contentView.findViewById(R.id.changeEmailButton);
         changePW = contentView.findViewById(R.id.changePasswordButton);
@@ -61,7 +59,6 @@ public class ProfileFragment extends Fragment implements ProfileView, ChangeEmai
 
     @Override
     public void showUserInfo(String username, String email, String address) {
-        toolbar.setTitle(username);
         userName.setText(username);
         userEmail.setText(email);
         userAddress.setText(address);
@@ -104,7 +101,13 @@ public class ProfileFragment extends Fragment implements ProfileView, ChangeEmai
     }
 
     @Override
-    public void changeEmail(String oldEmail, String newEmail, String password) {
-        presenter.changeEmail(oldEmail, newEmail, password);
+    public void changeEmail(String newEmail, String password) {
+        presenter.changeEmail(newEmail, password);
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
     }
 }

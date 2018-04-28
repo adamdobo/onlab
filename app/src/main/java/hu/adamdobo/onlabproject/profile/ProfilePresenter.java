@@ -10,7 +10,7 @@ public interface ProfilePresenter {
 
     void changePassword(String oldPassword, String newPassword);
 
-    void changeEmail(String oldEmail, String newEmail, String password);
+    void changeEmail(String newEmail, String password);
 
     void onUserInfoReady();
 }

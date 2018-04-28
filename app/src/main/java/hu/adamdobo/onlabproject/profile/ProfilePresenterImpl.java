@@ -50,8 +50,8 @@ public class ProfilePresenterImpl implements ProfilePresenter, ProfileInteractor
     }
 
     @Override
-    public void changeEmail(String oldEmail, String newEmail, String password) {
-        profileInteractor.updateEmail(oldEmail, newEmail, password, this);
+    public void changeEmail(String newEmail, String password) {
+        profileInteractor.updateEmail(newEmail, password, this);
     }
 
 

@@ -6,5 +6,5 @@ package hu.adamdobo.onlabproject.profile;
 
 public interface ChangeEmailCallbackListener {
 
-    void changeEmail(String oldEmail, String newEmail, String password);
+    void changeEmail(String newEmail, String password);
 }

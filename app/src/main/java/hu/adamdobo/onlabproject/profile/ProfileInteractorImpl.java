@@ -88,8 +88,8 @@ public class ProfileInteractorImpl implements ProfileInteractor {
     }
 
     @Override
-    public void updateEmail(String oldEmail, final String newEmail, String password, final OnEmailUpdateFinishedListener listener) {
-        AuthCredential credential = EmailAuthProvider.getCredential(oldEmail, password);
+    public void updateEmail(final String newEmail, String password, final OnEmailUpdateFinishedListener listener) {
+        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), password);
         user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

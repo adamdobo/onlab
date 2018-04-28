@@ -35,7 +35,7 @@ public interface ProfileInteractor {
 
     void updatePassword(String oldPassword, String newPassword, OnPasswordUpdateFinishedListener listener);
 
-    void updateEmail(String oldEmail, String newEmail, String password, OnEmailUpdateFinishedListener listener);
+    void updateEmail(String newEmail, String password, OnEmailUpdateFinishedListener listener);
 
 
 }
