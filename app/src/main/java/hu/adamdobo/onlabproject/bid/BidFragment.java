@@ -3,6 +3,7 @@ package hu.adamdobo.onlabproject.bid;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import hu.adamdobo.onlabproject.model.Item;
 public class BidFragment extends Fragment implements BidView {
     TextView itemName, bidExpiry, startPrice, currentBid, itemDescription;
     EditText bidEditText;
+    TextInputLayout bidLayout;
     Button bidButton, closeBidButton;
     ImageView itemImage;
     String itemID;
@@ -43,6 +45,7 @@ public class BidFragment extends Fragment implements BidView {
         currentBid = contentView.findViewById(R.id.currentBid);
         itemDescription = contentView.findViewById(R.id.itemDescription);
         bidEditText = contentView.findViewById(R.id.bidEditText);
+        bidLayout  = contentView.findViewById(R.id.bidLayout);
         bidButton = contentView.findViewById(R.id.bidButton);
         closeBidButton = contentView.findViewById(R.id.closeBidButton);
         itemImage = contentView.findViewById(R.id.itemImage);
@@ -52,7 +55,7 @@ public class BidFragment extends Fragment implements BidView {
         bidButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(currentBid.getText().toString().equals("None")){
+                if(currentBid.getText().toString().equals(getString(R.string.none))){
                     validateBid(Integer.parseInt(bidEditText.getText().toString()), 0, Integer.parseInt(startPrice.getText().toString()));
 
                 }else {
@@ -90,7 +93,7 @@ public class BidFragment extends Fragment implements BidView {
         startPrice.setText(item.startPrice);
         currentBid.setText(item.currentBid);
         itemDescription.setText(item.description);
-        if(!item.currentBid.equals("None")) {
+        if(!item.currentBid.equals(getString(R.string.none))) {
             bidEditText.setText(item.currentBid);
         }else{
             bidEditText.setText(item.startPrice);
@@ -100,6 +103,7 @@ public class BidFragment extends Fragment implements BidView {
 
     @Override
     public void setBidSuccess() {
+        bidLayout.setError(null);
         Snackbar.make(getView(), R.string.successfull_bid, Snackbar.LENGTH_LONG).show();
     }
 
@@ -121,13 +125,13 @@ public class BidFragment extends Fragment implements BidView {
 
     @Override
     public void setCurrentBidFailure() {
-        Snackbar.make(getView(), R.string.lower_than_highest, Snackbar.LENGTH_LONG).show();
+        bidLayout.setError(getString(R.string.lower_than_highest));
         bidEditText.setText(currentBid.getText());
     }
 
     @Override
     public void setStartPriceBidFailure() {
-        Snackbar.make(getView(), R.string.lower_than_starting, Snackbar.LENGTH_LONG).show();
+        bidLayout.setError(getString(R.string.lower_than_starting));
         bidEditText.setText(startPrice.getText());
     }
 
