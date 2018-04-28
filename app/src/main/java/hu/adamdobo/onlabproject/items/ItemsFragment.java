@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +36,7 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         presenter = new ItemsPresenterImpl(this, new ItemsInteractorImpl());
+        getActivity().setTitle(getString(R.string.items));
         View contentView = inflater.inflate(R.layout.fragment_items, container, false);
         progressBarHolder = contentView.findViewById(R.id.progressBarHolder);
         setRecyclerView(contentView);
@@ -53,7 +54,7 @@ public class ItemsFragment extends Fragment implements ItemsView, SaveItemCallba
     private void setRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.itemList);
         itemsAdapter = new ItemsAdapter(getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext().getApplicationContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext().getApplicationContext(), 2));
         recyclerView.setAdapter(itemsAdapter);
     }
 
