@@ -63,6 +63,7 @@ public class SectionedRecyclerViewAdapter extends SectionRecyclerViewAdapter<Sec
         itemViewHolder.itemName.setText(item.name);
         itemViewHolder.startPrice.setText(item.startPrice);
         itemViewHolder.currentBid.setText(item.currentBid);
+        itemViewHolder.buyoutPrice.setText(item.buyoutPrice);
         if (item.imageUrl != null) {
             Glide.with(context)
                     .load(item.imageUrl)
@@ -107,7 +108,7 @@ public class SectionedRecyclerViewAdapter extends SectionRecyclerViewAdapter<Sec
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
-        TextView itemName, expirationDate, startPrice, currentBid;
+        TextView itemName, buyoutPrice, startPrice, currentBid;
         ImageView itemPhoto;
         Button adaptiveButton;
 
@@ -115,7 +116,7 @@ public class SectionedRecyclerViewAdapter extends SectionRecyclerViewAdapter<Sec
             super(itemView);
             itemName = itemView.findViewById(R.id.itemName);
             itemPhoto = itemView.findViewById(R.id.itemImage);
-            expirationDate = itemView.findViewById(R.id.expiry);
+            buyoutPrice = itemView.findViewById(R.id.buyoutPrice);
             startPrice = itemView.findViewById(R.id.startPrice);
             currentBid = itemView.findViewById(R.id.currentBid);
             adaptiveButton = itemView.findViewById(R.id.adaptiveButton);

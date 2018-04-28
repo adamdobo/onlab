@@ -67,4 +67,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             marker.showInfoWindow();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
 }

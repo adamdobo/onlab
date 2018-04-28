@@ -31,6 +31,7 @@ public class MyBidsFragment extends Fragment implements MyBidsView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         presenter = new MyBidsPresenterImpl(this, new MyBidsInteractorImpl());
+        getActivity().setTitle(getString(R.string.my_bids));
         View contentView = inflater.inflate(R.layout.simple_recyclerview, container, false);
         setRecyclerView(contentView);
         return contentView;

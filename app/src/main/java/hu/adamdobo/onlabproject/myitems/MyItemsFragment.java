@@ -38,6 +38,7 @@ public class MyItemsFragment extends Fragment implements MyItemsView, OnDelivery
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         presenter = new MyItemsPresenterImpl(this, new MyItemsInteractorImpl());
+        getActivity().setTitle(getString(R.string.my_items));
         View contentView = inflater.inflate(R.layout.simple_recyclerview, container, false);
         setRecyclerView(contentView);
         return contentView;
@@ -95,5 +96,11 @@ public class MyItemsFragment extends Fragment implements MyItemsView, OnDelivery
     public void onDeliveryClicked(Item item) {
         Snackbar.make(getView(), "Item delivery started, now it's your responsibility to deliver the item to the winner.", Snackbar.LENGTH_LONG).show();
         presenter.startDelivery(item);
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
     }
 }
