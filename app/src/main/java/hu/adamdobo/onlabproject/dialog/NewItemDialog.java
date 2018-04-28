@@ -2,7 +2,6 @@ package hu.adamdobo.onlabproject.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,13 +12,15 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatDialogFragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -39,17 +40,18 @@ import static android.app.Activity.RESULT_OK;
  * Created by Ádám on 3/13/2018.
  */
 
-public class NewItemDialog extends AppCompatDialogFragment{
+public class NewItemDialog extends ValidationDialogFragment {
 
     private static final int REQUEST_IMAGE_CAPTURE = 100;
     public static final String TAG = "NewItemDialog";
     private EditText nameEditText, startPriceEditText, descriptionEditText, buyoutEditText;
+    private TextInputLayout nameLayout, startPriceLayout, buyoutLayout;
     private ImageView photoImageView;
     private String mCurrentPhotoPath;
     private static SaveItemCallbackListener listener;
     private byte[] bytes;
 
-    public static NewItemDialog newInstance(SaveItemCallbackListener saveItemCallbackListener){
+    public static NewItemDialog newInstance(SaveItemCallbackListener saveItemCallbackListener) {
         listener = saveItemCallbackListener;
         NewItemDialog newItemDialog = new NewItemDialog();
         return newItemDialog;
@@ -61,16 +63,47 @@ public class NewItemDialog extends AppCompatDialogFragment{
         return new AlertDialog.Builder(getContext())
                 .setTitle("New item")
                 .setView(getContentView())
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        listener.saveItemWithPicture(getItem(), bytes);
-                    }
-                })
+                .setPositiveButton(android.R.string.ok, null)
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        AlertDialog d = (AlertDialog) getDialog();
+        if (d != null) {
+            Button positiveButton = (Button) d.getButton(Dialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clearErrors();
+                    Boolean wantToCloseDialog = false;
+                    if (noEmptyFields()) {
+                        if (startPriceIsBiggerThanBuyout()) {
+                            setStartPriceBiggerThanBuyoutError();
+                        }else {
+                            wantToCloseDialog = true;
+                            listener.saveItemWithPicture(getItem(), bytes);
+                        }
+                    } else {
+                        setEmptyErrors();
+                    }
+                    if (wantToCloseDialog) {
+                        dismiss();
+                    }
+                }
+            });
+        }
+    }
+
+    private boolean startPriceIsBiggerThanBuyout() {
+        if (((Integer.parseInt(startPriceEditText.getText().toString()) >= Integer.parseInt(buyoutEditText.getText().toString()))))
+        {
+            return true;
+        }
+        return false;
+    }
 
     public View getContentView() {
         final View contentView = LayoutInflater.from(getContext()).inflate(R.layout.add_item_dialog, null);
@@ -79,6 +112,9 @@ public class NewItemDialog extends AppCompatDialogFragment{
         descriptionEditText = contentView.findViewById(R.id.item_description);
         buyoutEditText = contentView.findViewById(R.id.item_buyout);
         photoImageView = contentView.findViewById(R.id.item_photo);
+        nameLayout = contentView.findViewById(R.id.item_name_layout);
+        startPriceLayout = contentView.findViewById(R.id.item_startprice_layout);
+        buyoutLayout = contentView.findViewById(R.id.item_buyout_layout);
         photoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,11 +214,11 @@ public class NewItemDialog extends AppCompatDialogFragment{
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        Double scaleFactor = Math.min(photoW/targetW*1.3, photoH/targetH*1.3);
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor.intValue();
+        bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
@@ -200,5 +236,37 @@ public class NewItemDialog extends AppCompatDialogFragment{
         item.description = descriptionEditText.getText().toString();
         item.buyoutPrice = buyoutEditText.getText().toString();
         return item;
+    }
+
+    private void setStartPriceBiggerThanBuyoutError() {
+        buyoutLayout.setError(getString(R.string.buyout_must_be_higher));
+    }
+
+    @Override
+    protected boolean noEmptyFields() {
+        if (TextUtils.isEmpty(nameEditText.getText()) || TextUtils.isEmpty(startPriceEditText.getText()) || TextUtils.isEmpty(buyoutEditText.getText())) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected void clearErrors() {
+        nameLayout.setError(null);
+        startPriceLayout.setError(null);
+        buyoutLayout.setError(null);
+    }
+
+    @Override
+    protected void setEmptyErrors() {
+        if (TextUtils.isEmpty(nameEditText.getText())) {
+            nameLayout.setError(getString(R.string.fill_out));
+        }
+        if (TextUtils.isEmpty(startPriceEditText.getText())) {
+            startPriceLayout.setError(getString(R.string.fill_out));
+        }
+        if (TextUtils.isEmpty(buyoutEditText.getText())) {
+            buyoutLayout.setError(getString(R.string.fill_out));
+        }
     }
 }

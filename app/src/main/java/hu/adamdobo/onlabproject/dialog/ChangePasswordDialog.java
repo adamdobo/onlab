@@ -17,7 +17,7 @@ import hu.adamdobo.onlabproject.profile.ChangePasswordCallbackListener;
  * Created by Ádám on 4/5/2018.
  */
 
-public class ChangePasswordDialog extends ChangeCredentialsDialog {
+public class ChangePasswordDialog extends ValidationDialogFragment {
 
     private static ChangePasswordCallbackListener listener;
     public static final String TAG = "ChangePasswordDialog";

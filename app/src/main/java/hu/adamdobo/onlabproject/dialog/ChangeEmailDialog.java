@@ -17,12 +17,12 @@ import hu.adamdobo.onlabproject.profile.ChangeEmailCallbackListener;
  * Created by Ádám on 4/5/2018.
  */
 
-public class ChangeEmailDialog extends ChangeCredentialsDialog{
+public class ChangeEmailDialog extends ValidationDialogFragment {
 
     public static final String TAG = "ChangeEmailDialog";
     private static ChangeEmailCallbackListener listener;
-    EditText oldEmailEditText, newEmailEditText, passwordEditText;
-    TextInputLayout oldEmailLayout, newEmailLayout, passwordLayout;
+    EditText newEmailEditText, passwordEditText;
+    TextInputLayout newEmailLayout, passwordLayout;
 
     public static ChangeEmailDialog newInstance(ChangeEmailCallbackListener changeEmailCallbackListener) {
         listener = changeEmailCallbackListener;
@@ -52,7 +52,7 @@ public class ChangeEmailDialog extends ChangeCredentialsDialog{
                     Boolean wantToCloseDialog = false;
                     if (noEmptyFields()) {
                         wantToCloseDialog = true;
-                        listener.changeEmail(oldEmailEditText.getText().toString(), newEmailEditText.getText().toString(), passwordEditText.getText().toString());
+                        listener.changeEmail(newEmailEditText.getText().toString(), passwordEditText.getText().toString());
                     }
                     if (wantToCloseDialog) {
                         dismiss();
@@ -65,10 +65,8 @@ public class ChangeEmailDialog extends ChangeCredentialsDialog{
 
     public View getContentView() {
         View contentView = LayoutInflater.from(getContext()).inflate(R.layout.change_email_dialog, null);
-        oldEmailEditText = contentView.findViewById(R.id.oldEmailEditText);
         newEmailEditText = contentView.findViewById(R.id.newEmailEditText);
         passwordEditText = contentView.findViewById(R.id.passwordEditText);
-        oldEmailLayout = contentView.findViewById(R.id.oldEmail);
         newEmailLayout = contentView.findViewById(R.id.newEmail);
         passwordLayout = contentView.findViewById(R.id.password);
         return contentView;
@@ -76,7 +74,7 @@ public class ChangeEmailDialog extends ChangeCredentialsDialog{
 
     @Override
     protected boolean noEmptyFields() {
-        if(TextUtils.isEmpty(newEmailEditText.getText()) || TextUtils.isEmpty(oldEmailEditText.getText()) || TextUtils.isEmpty(passwordEditText.getText())){
+        if(TextUtils.isEmpty(newEmailEditText.getText()) || TextUtils.isEmpty(passwordEditText.getText())){
             setEmptyErrors();
             return false;
         }
@@ -86,7 +84,6 @@ public class ChangeEmailDialog extends ChangeCredentialsDialog{
     @Override
     protected void clearErrors() {
         newEmailLayout.setError(null);
-        oldEmailLayout.setError(null);
         passwordLayout.setError(null);
     }
 
@@ -94,9 +91,6 @@ public class ChangeEmailDialog extends ChangeCredentialsDialog{
     protected void setEmptyErrors() {
         if(TextUtils.isEmpty(newEmailEditText.getText())){
             newEmailLayout.setError(getString(R.string.fill_out));
-        }
-        if(TextUtils.isEmpty(oldEmailEditText.getText())){
-            oldEmailLayout.setError(getString(R.string.fill_out));
         }
         if(TextUtils.isEmpty(passwordEditText.getText())){
             passwordLayout.setError(getString(R.string.fill_out));
