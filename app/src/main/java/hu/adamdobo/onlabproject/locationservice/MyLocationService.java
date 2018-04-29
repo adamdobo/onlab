@@ -23,6 +23,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import hu.adamdobo.onlabproject.R;
+import hu.adamdobo.onlabproject.fbcloudmessaging.MyNotificationManager;
+
 public class MyLocationService extends Service implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
     private static final String TAG = MyLocationService.class.getSimpleName();
     private static final int SERVICE_ID = 109;
@@ -65,7 +68,8 @@ public class MyLocationService extends Service implements GoogleApiClient.Connec
 
         locationRequest.setPriority(priority);
         googleApiClient.connect();
-        startForeground(SERVICE_ID, new NotificationCompat.Builder(getApplicationContext())
+        startForeground(SERVICE_ID, new NotificationCompat.Builder(getApplicationContext(), MyNotificationManager.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_local_shipping_black_24dp)
                 .setContentTitle("Delivery is active")
                 .setContentText("Your position is being shared with the winner of the bid")
                 .build());

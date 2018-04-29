@@ -38,6 +38,7 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-storage:0.6.0'
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.github.Quatja:Vorolay:1.0.1'
+    implementation 'com.google.firebase:firebase-messaging:15.0.0'
 }
 
 
