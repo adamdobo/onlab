@@ -3,6 +3,7 @@ package hu.adamdobo.onlabproject.bid;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -65,15 +66,16 @@ public class BidInteractorImpl implements BidInteractor {
     }
 
     @Override
-    public void placeBid(String itemID, String highestBid) {
+    public void placeBid(String itemID, final String highestBid) {
         DatabaseReference itemsRef = db.getReference().child("items");
+
         final DatabaseReference usersRef = db.getReference().child("users");
         itemsRef.child(itemID).child("highestBidder").setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
         itemsRef.child(itemID).child("currentBid").setValue(highestBid).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    usersRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("bidItems").child(bidItem.ID).setValue(bidItem.currentBid);
+                if (task.isSuccessful()) {
+                    usersRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("bidItems").child(bidItem.ID).setValue(highestBid);
                 }
             }
         });
@@ -100,5 +102,21 @@ public class BidInteractorImpl implements BidInteractor {
         bidItem.ID = closedBidsRef.getKey();
         bidItem.status = "closed";
         closedBidsRef.setValue(bidItem);
+    }
+
+    @Override
+    public void buyoutItem() {
+        final DatabaseReference closedBidsRef = db.getReference().child("closedBids").push();
+        final DatabaseReference itemsRef = db.getReference().child("items");
+        itemsRef.child(bidItem.ID).child("currentBid").setValue(bidItem.buyoutPrice).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                itemsRef.child(bidItem.ID).removeValue();
+                bidItem.ID = closedBidsRef.getKey();
+                bidItem.status = "closed";
+                bidItem.highestBidder = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                closedBidsRef.setValue(bidItem);
+            }
+        });
     }
 }

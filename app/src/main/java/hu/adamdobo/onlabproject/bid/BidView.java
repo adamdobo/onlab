@@ -27,4 +27,8 @@ public interface BidView {
     void onBidClosed();
 
     void onBidChanged(Item item);
+
+    void hideProgress();
+
+    void showProgress();
 }

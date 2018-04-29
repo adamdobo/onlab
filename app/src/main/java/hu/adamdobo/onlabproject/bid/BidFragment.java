@@ -8,8 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,10 +26,11 @@ public class BidFragment extends Fragment implements BidView {
     TextView itemName, bidExpiry, startPrice, currentBid, itemDescription;
     EditText bidEditText;
     TextInputLayout bidLayout;
-    Button bidButton, closeBidButton;
+    Button bidButton, closeBidButton, buyoutButton;
     ImageView itemImage;
     String itemID;
     BidPresenter presenter;
+    private FrameLayout progressBarHolder;
 
     @Override
     public void onDestroy() {
@@ -39,6 +42,10 @@ public class BidFragment extends Fragment implements BidView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.fragment_bid, container, false);
+        progressBarHolder = contentView.findViewById(R.id.progressBarHolder);
+        showProgress();
+        itemID = getArguments().getString("item_id");
+        presenter = new BidPresenterImpl(this, new BidInteractorImpl(), itemID);
         itemName = contentView.findViewById(R.id.itemName);
         bidExpiry = contentView.findViewById(R.id.bidExpiry);
         startPrice = contentView.findViewById(R.id.startPrice);
@@ -47,10 +54,12 @@ public class BidFragment extends Fragment implements BidView {
         bidEditText = contentView.findViewById(R.id.bidEditText);
         bidLayout  = contentView.findViewById(R.id.bidLayout);
         bidButton = contentView.findViewById(R.id.bidButton);
+        buyoutButton = contentView.findViewById(R.id.buyoutButton);
         closeBidButton = contentView.findViewById(R.id.closeBidButton);
         itemImage = contentView.findViewById(R.id.itemImage);
-        itemID = getArguments().getString("item_id");
-        presenter = new BidPresenterImpl(this, new BidInteractorImpl(), itemID);
+
+
+
 
         bidButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +70,13 @@ public class BidFragment extends Fragment implements BidView {
                 }else {
                     validateBid(Integer.parseInt(bidEditText.getText().toString()), Integer.parseInt(currentBid.getText().toString()), Integer.parseInt(startPrice.getText().toString()));
                 }
+            }
+        });
+
+        buyoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.buyoutItem();
             }
         });
 
@@ -82,7 +98,6 @@ public class BidFragment extends Fragment implements BidView {
 
     @Override
     public void onItemReceived(Item item) {
-        checkForBidDisable();
         setImageView();
         updateUI(item);
     }
@@ -118,6 +133,8 @@ public class BidFragment extends Fragment implements BidView {
             bidButton.setEnabled(false);
             bidButton.setVisibility(View.GONE);
             bidEditText.setEnabled(false);
+            buyoutButton.setEnabled(false);
+            buyoutButton.setVisibility(View.GONE);
             closeBidButton.setEnabled(true);
             closeBidButton.setVisibility(View.VISIBLE);
         }
@@ -145,6 +162,23 @@ public class BidFragment extends Fragment implements BidView {
     @Override
     public void onBidChanged(Item item) {
         currentBid.setText(item.currentBid);
+    }
+
+    @Override
+    public void hideProgress() {
+        AlphaAnimation outAnimation = new AlphaAnimation(1f, 0f);
+        outAnimation.setDuration(200);
+        progressBarHolder.setAnimation(outAnimation);
+        progressBarHolder.setVisibility(View.GONE);
+        checkForBidDisable();
+    }
+
+    @Override
+    public void showProgress() {
+        AlphaAnimation inAnimation = new AlphaAnimation(0f, 1f);
+        inAnimation.setDuration(200);
+        progressBarHolder.setAnimation(inAnimation);
+        progressBarHolder.setVisibility(View.VISIBLE);
     }
 
 }

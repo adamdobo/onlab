@@ -32,4 +32,6 @@ public interface BidPresenter {
     void onBidClosed();
 
     void onBidChanged(Item item);
+
+    void buyoutItem();
 }

@@ -4,6 +4,9 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import hu.adamdobo.onlabproject.model.Item;
 
@@ -32,14 +35,14 @@ public class BidPresenterImpl implements BidPresenter {
 
     @Override
     public void onItemReceived(Item temp) {
-        if(bidView!=null) {
+        if (bidView != null) {
             bidView.onItemReceived(temp);
         }
     }
 
     @Override
     public void onBidSuccess(int highestBid) {
-        if(bidView!=null) {
+        if (bidView != null) {
             bidInteractor.placeBid(itemID, highestBid + "");
             bidView.setBidSuccess();
         }
@@ -47,14 +50,14 @@ public class BidPresenterImpl implements BidPresenter {
 
     @Override
     public void onCurrentBidFailure() {
-        if(bidView!=null) {
+        if (bidView != null) {
             bidView.setCurrentBidFailure();
         }
     }
 
     @Override
     public void onStartPriceBidFailure() {
-        if(bidView!=null) {
+        if (bidView != null) {
             bidView.setStartPriceBidFailure();
         }
     }
@@ -79,6 +82,20 @@ public class BidPresenterImpl implements BidPresenter {
     public void loadItemPhoto(Context context, ImageView imageView) {
         Glide.with(context)
                 .load(bidInteractor.getDownloadUrl())
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        if (bidView != null) {
+                            bidView.hideProgress();
+                        }
+                        return false;
+                    }
+                })
                 .into(imageView);
     }
 
@@ -94,16 +111,21 @@ public class BidPresenterImpl implements BidPresenter {
 
     @Override
     public void onBidClosed() {
-        if(bidView!=null){
+        if (bidView != null) {
             bidView.onBidClosed();
         }
     }
 
     @Override
     public void onBidChanged(Item item) {
-        if(bidView!=null){
+        if (bidView != null) {
             bidView.onBidChanged(item);
         }
+    }
+
+    @Override
+    public void buyoutItem() {
+        bidInteractor.buyoutItem();
     }
 
 }

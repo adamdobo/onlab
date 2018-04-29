@@ -16,4 +16,6 @@ public interface BidInteractor {
     boolean checkUser();
 
     void closeBid();
+
+    void buyoutItem();
 }

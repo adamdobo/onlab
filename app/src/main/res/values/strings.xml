@@ -69,4 +69,5 @@
     <string name="buyout_price">Buyout price</string>
     <string name="buyout_must_be_higher">The buyout price must be higher than the start price</string>
     <string name="dollar_symbol">$</string>
+    <string name="buyout">Buyout</string>
 </resources>
