@@ -19,4 +19,6 @@ public interface MyBidsPresenter {
     void onWonItemsLoaded();
 
     void onOngoingBidsLoaded();
+
+    void onBidIdsLoaded();
 }

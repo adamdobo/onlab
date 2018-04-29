@@ -18,7 +18,6 @@ public class MyBidsPresenterImpl implements MyBidsPresenter {
         this.myBidsView = myBidsView;
         myBidsInteractor.subscribeForNewBids();
         myBidsInteractor.setPresenter(this);
-        myBidsInteractor.subscribeToDatabaseChanges();
 
     }
 
@@ -49,5 +48,10 @@ public class MyBidsPresenterImpl implements MyBidsPresenter {
         if (myBidsView != null) {
             myBidsView.setOngoingBidsSection();
         }
+    }
+
+    @Override
+    public void onBidIdsLoaded() {
+        myBidsInteractor.subscribeToDatabaseChanges();
     }
 }

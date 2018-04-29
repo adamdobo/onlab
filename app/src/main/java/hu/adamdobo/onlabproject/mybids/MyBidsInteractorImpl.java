@@ -1,7 +1,6 @@
 package hu.adamdobo.onlabproject.mybids;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -88,25 +87,14 @@ public class MyBidsInteractorImpl implements MyBidsInteractor {
 
     @Override
     public void subscribeForNewBids() {
-        db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("bidItems").addChildEventListener(new ChildEventListener() {
+        db.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("bidItems").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                myBidIds.add(dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                myBidIds.remove(dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot id :
+                     dataSnapshot.getChildren()) {
+                    myBidIds.add(id.getKey());
+                }
+                presenter.onBidIdsLoaded();
             }
 
             @Override
