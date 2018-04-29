@@ -16,4 +16,6 @@ public interface DrawerInteractor {
     void navigateTo(MenuItem item, DrawerLayout drawerLayout, DrawerListener listener);
 
     void setCurrentMenuItem(int itemId);
+
+    void subscribeToTopics();
 }

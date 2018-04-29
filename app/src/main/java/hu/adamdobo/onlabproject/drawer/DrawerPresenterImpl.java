@@ -18,6 +18,7 @@ public class DrawerPresenterImpl implements DrawerPresenter, DrawerListener{
     public DrawerPresenterImpl(DrawerView drawerView, DrawerInteractor drawerInteractor) {
         this.drawerInteractor = drawerInteractor;
         this.drawerView = drawerView;
+        drawerInteractor.subscribeToTopics();
     }
 
     @Override
@@ -35,6 +36,11 @@ public class DrawerPresenterImpl implements DrawerPresenter, DrawerListener{
     public void logout() {
         drawerInteractor.logout();
         drawerView.navigateToLogin();
+    }
+
+    @Override
+    public void onDestroy() {
+        drawerView = null;
     }
 
     @Override

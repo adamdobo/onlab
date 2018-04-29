@@ -13,5 +13,7 @@ public interface DrawerPresenter {
     void setUserInfo();
     void logout();
 
+    void onDestroy();
+
     void setCurrentMenuItem(int itemId);
 }

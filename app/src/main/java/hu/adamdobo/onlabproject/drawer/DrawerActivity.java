@@ -1,6 +1,7 @@
 package hu.adamdobo.onlabproject.drawer;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 
 import hu.adamdobo.onlabproject.R;
 import hu.adamdobo.onlabproject.items.ItemsFragment;
-import hu.adamdobo.onlabproject.locationservice.MyNotificationManager;
+import hu.adamdobo.onlabproject.fbcloudmessaging.MyNotificationManager;
 import hu.adamdobo.onlabproject.login.LoginActivity;
 import hu.adamdobo.onlabproject.model.User;
 
@@ -30,13 +31,20 @@ public class DrawerActivity extends AppCompatActivity
 
 
     @Override
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MyNotificationManager myNotificationManager = new MyNotificationManager(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            MyNotificationManager.getInstance(this).createMainNotificationChannel();
+        }
         setContentView(R.layout.activity_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

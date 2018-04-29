@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import hu.adamdobo.onlabproject.R;
 import hu.adamdobo.onlabproject.delivery.DeliveryFragment;
@@ -73,5 +74,12 @@ public class DrawerInteractorImpl implements DrawerInteractor {
     @Override
     public void setCurrentMenuItem(int itemId) {
         currentMenuItem = itemId;
+    }
+
+    @Override
+    public void subscribeToTopics() {
+        FirebaseMessaging.getInstance().subscribeToTopic("outBid-" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+        FirebaseMessaging.getInstance().subscribeToTopic("win-" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+        FirebaseMessaging.getInstance().subscribeToTopic("deliveryStarted-" + FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 }
