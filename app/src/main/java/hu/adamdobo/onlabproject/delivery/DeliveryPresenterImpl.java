@@ -31,6 +31,13 @@ public class DeliveryPresenterImpl implements DeliveryPresenter {
 
     @Override
     public void onDeliveryItemsLoaded() {
-        deliveryView.setDeliveryItems();
+        if(deliveryView!=null) {
+            deliveryView.setDeliveryItems();
+        }
+    }
+
+    @Override
+    public void closeDelivery(DeliveryItem deliveryItem) {
+        deliveryInteractor.closeDelivery(deliveryItem);
     }
 }

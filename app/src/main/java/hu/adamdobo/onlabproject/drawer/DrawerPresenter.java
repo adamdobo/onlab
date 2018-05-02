@@ -16,4 +16,6 @@ public interface DrawerPresenter {
     void onDestroy();
 
     void setCurrentMenuItem(int itemId);
+
+    void onDeliveryFinished();
 }

@@ -16,8 +16,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import hu.adamdobo.onlabproject.R;
-import hu.adamdobo.onlabproject.items.ItemsFragment;
 import hu.adamdobo.onlabproject.fbcloudmessaging.MyNotificationManager;
+import hu.adamdobo.onlabproject.items.ItemsFragment;
+import hu.adamdobo.onlabproject.locationservice.MyLocationService;
 import hu.adamdobo.onlabproject.login.LoginActivity;
 import hu.adamdobo.onlabproject.model.User;
 
@@ -127,6 +128,12 @@ public class DrawerActivity extends AppCompatActivity
     @Override
     public void setActiveMenuItem(int itemPlace) {
         navigationView.getMenu().getItem(itemPlace).setChecked(true);
+    }
+
+    @Override
+    public void stopDeliveryService() {
+        Intent deliveryIntent = new Intent(this, MyLocationService.class);
+        stopService(deliveryIntent);
     }
 
     @Override

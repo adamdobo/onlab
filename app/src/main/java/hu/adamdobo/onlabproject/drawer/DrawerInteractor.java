@@ -18,4 +18,8 @@ public interface DrawerInteractor {
     void setCurrentMenuItem(int itemId);
 
     void subscribeToTopics();
+
+    void subscribeToDeliveryMonitor();
+
+    void setPresenter(DrawerPresenter drawerPresenter);
 }

@@ -15,4 +15,6 @@ public interface DeliveryPresenter {
     List<DeliveryItem> getDeliveries();
 
     void onDeliveryItemsLoaded();
+
+    void closeDelivery(DeliveryItem deliveryItem);
 }

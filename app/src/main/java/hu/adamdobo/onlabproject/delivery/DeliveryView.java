@@ -6,4 +6,5 @@ package hu.adamdobo.onlabproject.delivery;
 
 public interface DeliveryView {
     void setDeliveryItems();
+    void stopDeliveryService();
 }

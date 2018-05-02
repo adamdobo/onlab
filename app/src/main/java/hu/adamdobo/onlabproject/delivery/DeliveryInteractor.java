@@ -15,4 +15,6 @@ public interface DeliveryInteractor {
     List<DeliveryItem> getDeliveries();
 
     void setPresenter(DeliveryPresenter presenter);
+
+    void closeDelivery(DeliveryItem deliveryItem);
 }

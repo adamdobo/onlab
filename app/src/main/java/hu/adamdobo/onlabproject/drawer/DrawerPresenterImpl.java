@@ -18,7 +18,9 @@ public class DrawerPresenterImpl implements DrawerPresenter, DrawerListener{
     public DrawerPresenterImpl(DrawerView drawerView, DrawerInteractor drawerInteractor) {
         this.drawerInteractor = drawerInteractor;
         this.drawerView = drawerView;
+        drawerInteractor.setPresenter(this);
         drawerInteractor.subscribeToTopics();
+        drawerInteractor.subscribeToDeliveryMonitor();
     }
 
     @Override
@@ -46,6 +48,13 @@ public class DrawerPresenterImpl implements DrawerPresenter, DrawerListener{
     @Override
     public void setCurrentMenuItem(int itemId) {
         drawerInteractor.setCurrentMenuItem(itemId);
+    }
+
+    @Override
+    public void onDeliveryFinished() {
+        if(drawerView!=null){
+            drawerView.stopDeliveryService();
+        }
     }
 
     @Override

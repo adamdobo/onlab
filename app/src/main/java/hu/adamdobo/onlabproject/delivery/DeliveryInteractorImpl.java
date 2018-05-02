@@ -30,7 +30,7 @@ public class DeliveryInteractorImpl implements DeliveryInteractor {
                 for (DataSnapshot item : dataSnapshot.getChildren()
                         ) {
                     DeliveryItem deliveryItem = item.getValue(DeliveryItem.class);
-                    if(deliveryItem.highestBidder.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                    if(deliveryItem.highestBidder.equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) && deliveryItem.status.equals("underDelivery")){
                         deliveryItems.add(deliveryItem);
                     }
                 }
@@ -52,5 +52,11 @@ public class DeliveryInteractorImpl implements DeliveryInteractor {
     @Override
     public void setPresenter(DeliveryPresenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void closeDelivery(DeliveryItem deliveryItem) {
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("deliveryItems");
+        db.child(deliveryItem.ID).child("status").setValue("delivered");
     }
 }

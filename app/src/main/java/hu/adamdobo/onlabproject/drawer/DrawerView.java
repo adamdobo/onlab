@@ -14,4 +14,6 @@ public interface DrawerView {
     void navigateToLogin();
     void showUserInfo(User userInfo);
     void setActiveMenuItem(int itemPlace);
+
+    void stopDeliveryService();
 }

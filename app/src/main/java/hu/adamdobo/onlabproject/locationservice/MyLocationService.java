@@ -49,6 +49,12 @@ public class MyLocationService extends Service implements GoogleApiClient.Connec
     };
 
     @Override
+    public void onDestroy(){
+        stopForeground(true);
+        super.onDestroy();
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         itemID = intent.getStringExtra("item_id");
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
