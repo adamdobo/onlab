@@ -15,4 +15,5 @@ public interface MyItemsView {
     void setSections();
 
     void startDeliveryService(DeliveryItem deliveryItem);
+
 }

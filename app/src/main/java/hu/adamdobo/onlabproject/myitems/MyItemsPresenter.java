@@ -24,4 +24,5 @@ public interface MyItemsPresenter {
     void startDelivery(Item item);
 
     void onDeliveryItemCreated(DeliveryItem deliveryItem);
+
 }

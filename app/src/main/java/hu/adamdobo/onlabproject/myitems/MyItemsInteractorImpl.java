@@ -18,10 +18,10 @@ import hu.adamdobo.onlabproject.model.Item;
  */
 
 public class MyItemsInteractorImpl implements MyItemsInteractor {
-    DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-    MyItemsPresenter presenter;
-    List<Item> closedBids = new ArrayList<>();
-    List<Item> ongoingBids = new ArrayList<>();
+    private DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+    private MyItemsPresenter presenter;
+    private List<Item> closedBids = new ArrayList<>();
+    private List<Item> ongoingBids = new ArrayList<>();
     @Override
     public void subscribeToDatabaseChanges() {
         db.child("closedBids").addValueEventListener(new ValueEventListener() {

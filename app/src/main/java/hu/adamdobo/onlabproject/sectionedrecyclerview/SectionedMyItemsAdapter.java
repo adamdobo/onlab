@@ -25,7 +25,7 @@ import hu.adamdobo.onlabproject.myitems.OnDeliveryClickedListener;
  * Created by Ádám on 4/7/2018.
  */
 
-public class SectionedRecyclerViewAdapter extends SectionRecyclerViewAdapter<SectionHeader, Item, SectionedRecyclerViewAdapter.SectionViewHolder, SectionedRecyclerViewAdapter.ItemViewHolder> {
+public class SectionedMyItemsAdapter extends SectionRecyclerViewAdapter<SectionHeader, Item, SectionedMyItemsAdapter.SectionViewHolder, SectionedMyItemsAdapter.ItemViewHolder> {
 
     private Context context;
     private OnDeliveryClickedListener listener;
@@ -35,7 +35,7 @@ public class SectionedRecyclerViewAdapter extends SectionRecyclerViewAdapter<Sec
         super.onBindViewHolder(holder, flatPosition);
     }
 
-    public SectionedRecyclerViewAdapter(Context context, List<SectionHeader> sectionItemList, OnDeliveryClickedListener listener) {
+    public SectionedMyItemsAdapter(Context context, List<SectionHeader> sectionItemList, OnDeliveryClickedListener listener) {
         super(context, sectionItemList);
         this.context = context;
         this.listener = listener;

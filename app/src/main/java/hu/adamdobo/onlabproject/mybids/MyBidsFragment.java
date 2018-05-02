@@ -9,13 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import hu.adamdobo.onlabproject.R;
 import hu.adamdobo.onlabproject.model.Item;
 import hu.adamdobo.onlabproject.sectionedrecyclerview.SectionHeader;
-import hu.adamdobo.onlabproject.sectionedrecyclerview.SectionedRecyclerViewAdapter;
+import hu.adamdobo.onlabproject.sectionedrecyclerview.SectionedMyBidsAdapter;
 
 /**
  * Created by Ádám on 4/6/2018.
@@ -24,7 +26,7 @@ import hu.adamdobo.onlabproject.sectionedrecyclerview.SectionedRecyclerViewAdapt
 public class MyBidsFragment extends Fragment implements MyBidsView {
     private MyBidsPresenter presenter;
     private RecyclerView recyclerView;
-    private SectionedRecyclerViewAdapter myBidsAdapter;
+    private SectionRecyclerViewAdapter myBidsAdapter;
     private List<SectionHeader> sections;
 
     @Nullable
@@ -51,7 +53,7 @@ public class MyBidsFragment extends Fragment implements MyBidsView {
     private void setRecyclerView(View view) {
         setSections();
         recyclerView = view.findViewById(R.id.itemsList);
-        myBidsAdapter = new SectionedRecyclerViewAdapter(getActivity(), sections, null);
+        myBidsAdapter = new SectionedMyBidsAdapter(getActivity(), sections, null);
         recyclerView.setAdapter(myBidsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
