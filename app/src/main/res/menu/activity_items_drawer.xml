@@ -22,6 +22,8 @@
 
         <item
             android:id="@+id/nav_myitems"
+            android:icon="@drawable/ic_baseline_list"
+            android:iconTint="@android:color/black"
             android:title="@string/my_items"/>
 
         <item
