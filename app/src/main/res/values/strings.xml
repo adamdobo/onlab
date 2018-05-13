@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OnlabProject</string>
+    <string name="app_name">Auctioneer</string>
     <string name="login">Login</string>
     <string name="no_account">Not a member? Sign up now!</string>
     <string name="email">Email</string>
