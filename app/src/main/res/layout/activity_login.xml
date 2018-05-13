@@ -4,73 +4,66 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
-        android:paddingTop="56dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/layout_email"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            app:errorEnabled="true">
+            android:orientation="vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:layout_gravity="center">
 
-            <EditText
-                android:id="@+id/input_email"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/layout_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                app:errorEnabled="true">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/layout_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            app:passwordToggleEnabled="true"
-            app:errorEnabled="true">
+                <EditText
+                    android:id="@+id/input_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/input_password"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/layout_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:inputType="textPassword" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                app:passwordToggleEnabled="true"
+                app:errorEnabled="true">
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
-            android:padding="12dp"
-            android:text="@string/login" />
+                <EditText
+                    android:id="@+id/input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+            </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:id="@+id/link_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:gravity="center"
-            android:text="@string/no_account"
-            android:textSize="16dip" />
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="24dp"
+                android:padding="12dp"
+                android:text="@string/login" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/link_signup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center"
+                android:text="@string/no_account"
+                android:textSize="16dip" />
+
+        </LinearLayout>
 
     <include layout="@layout/layout_progressbar" />
 </android.support.design.widget.CoordinatorLayout>

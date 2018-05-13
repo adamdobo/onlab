@@ -15,6 +15,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String text = remoteMessage.getNotification().getBody();
         String sound = remoteMessage.getNotification().getSound();
 
-        MyNotificationManager.getInstance(getApplicationContext()).displayNotification(title, text);
+        MyNotificationManager.getInstance(getApplicationContext()).displayNotification(title, text, image);
     }
 }

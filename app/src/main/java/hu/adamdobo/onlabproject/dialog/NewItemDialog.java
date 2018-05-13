@@ -84,7 +84,9 @@ public class NewItemDialog extends ValidationDialogFragment {
                             setStartPriceBiggerThanBuyoutError();
                         }else {
                             wantToCloseDialog = true;
-                            listener.saveItemWithPicture(getItem(), bytes);
+                            if(bytes != null) {
+                                listener.saveItemWithPicture(getItem(), bytes);
+                            }
                         }
                     } else {
                         setEmptyErrors();

@@ -22,8 +22,8 @@ public class CloseDeliveryDialog extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getContext())
-                .setTitle("New item")
-                .setMessage("Do you want to mark this delivery as done? (Only do this if you got the item delivered to you!")
+                .setTitle("Close delivery")
+                .setMessage("Do you want to mark this delivery as done? (Only do this if you got the item delivered to you!)")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

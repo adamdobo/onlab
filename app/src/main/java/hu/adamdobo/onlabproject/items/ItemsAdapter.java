@@ -44,19 +44,21 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
     @Override
     public void onBindViewHolder(ItemsViewHolder holder, int position) {
         Item item = itemList.get(position);
-        holder.itemName.setText(item.name);
-        if(!item.currentBid.equals("None")) {
-            holder.currentPrice.setText(item.currentBid);
-        }else {
-            holder.currentPrice.setText(item.startPrice);
-        }
-        if (item.imageUrl != null) {
-            Glide.with(context)
-                    .load(item.imageUrl)
-                    .into(holder.itemPhoto);
-            holder.itemPhoto.setVisibility(View.VISIBLE);
-        } else {
-            holder.itemPhoto.setVisibility(View.INVISIBLE);
+        if(item!=null) {
+            holder.itemName.setText(item.name);
+            if (!item.currentBid.equals("None")) {
+                holder.currentPrice.setText(item.currentBid);
+            } else {
+                holder.currentPrice.setText(item.startPrice);
+            }
+            if (item.imageUrl != null) {
+                Glide.with(context)
+                        .load(item.imageUrl)
+                        .into(holder.itemPhoto);
+                holder.itemPhoto.setVisibility(View.VISIBLE);
+            } else {
+                holder.itemPhoto.setVisibility(View.INVISIBLE);
+            }
         }
 
     }
@@ -68,8 +70,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
 
 
     public void addItem(Item addedItem) {
-        itemList.add(addedItem);
-        notifyItemInserted(itemList.indexOf(addedItem));
+        if(addedItem!=null) {
+            if(!itemList.contains(addedItem)){
+                itemList.add(addedItem);
+                notifyItemInserted(itemList.indexOf(addedItem));
+            }
+        }
     }
 
     public void changeItem(Item changedItem) {

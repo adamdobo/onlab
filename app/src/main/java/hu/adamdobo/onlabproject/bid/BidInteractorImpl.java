@@ -115,6 +115,7 @@ public class BidInteractorImpl implements BidInteractor {
                 bidItem.ID = closedBidsRef.getKey();
                 bidItem.status = "closed";
                 bidItem.highestBidder = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                bidItem.currentBid=bidItem.buyoutPrice;
                 closedBidsRef.setValue(bidItem);
             }
         });

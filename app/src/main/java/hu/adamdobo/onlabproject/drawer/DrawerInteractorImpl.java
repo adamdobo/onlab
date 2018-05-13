@@ -87,6 +87,7 @@ public class DrawerInteractorImpl implements DrawerInteractor {
         FirebaseMessaging.getInstance().subscribeToTopic("outBid-" + FirebaseAuth.getInstance().getCurrentUser().getUid());
         FirebaseMessaging.getInstance().subscribeToTopic("win-" + FirebaseAuth.getInstance().getCurrentUser().getUid());
         FirebaseMessaging.getInstance().subscribeToTopic("deliveryStarted-" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+        FirebaseMessaging.getInstance().subscribeToTopic("sold-" + FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
 
     @Override

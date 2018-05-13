@@ -10,6 +10,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.HashMap;
+
 import hu.adamdobo.onlabproject.R;
 import hu.adamdobo.onlabproject.drawer.DrawerActivity;
 
@@ -50,9 +52,11 @@ public class MyNotificationManager {
         mNotificationManager.createNotificationChannel(mChannel);
     }
 
-   public void displayNotification(String title, String body){
+   public void displayNotification(String title, String body, String icon){
+       HashMap<String, Integer> iconMap = new HashMap<>();
+       iconMap.put(icon, R.drawable.ic_gavel_black_24dp);
        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
-               .setSmallIcon(R.drawable.ic_local_shipping_black_24dp)
+               .setSmallIcon(iconMap.get(icon).intValue())
                .setContentTitle(title)
                .setContentText(body);
 
